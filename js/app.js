@@ -11,6 +11,11 @@ const VERSIONS = [
       "Impacto en el desarrollo de software: Impulsó el desarrollo de aplicaciones con interfaces gráficas, haciendo que los programas fueran más visuales y fáciles de utilizar.",
       "Experiencia de usuario: Permitió interactuar con el computador mediante ratón y elementos gráficos, haciendo la informática más accesible.",
     ],
+    specs: {
+      requisitos: "[Requisitos mínimos]",
+      arquitectura: "[Arquitectura de procesador soportada]",
+      novedad: "Interfaz gráfica",
+    },
   },
   {
     id: "v2",
