@@ -227,55 +227,16 @@ h1,h2,h3,h4,p{ margin:0; }
 .mock__placeholder svg{ width:38px; height:38px; opacity:.5; }
 .mock__placeholder span{ font-family:var(--font-mono); font-size:.72rem; letter-spacing:.06em; }
 
-/* device illustration: macbook + iphone, animados */
-.mock__devices{
-  position:relative;
-  width:min(560px, 82%);
+/* video embebido dentro del mock, debajo de la barra de puntos */
+.mock__video-wrap{
+  position:absolute;
+  inset:34px 0 0 0;
 }
-.mock__devices-svg{
+.mock__video{
+  display:block;
   width:100%;
-  height:auto;
-  overflow:visible;
-}
-.mock__glow{
-  position:absolute;
-}
-.mock__devices-svg .mock__glow{
-  transform:translate(0,0);
-}
-.mock__devices::before{
-  content:"";
-  position:absolute;
-  inset:10% -6% auto -6%;
-  height:70%;
-  background:
-    radial-gradient(ellipse 55% 60% at 32% 40%, var(--accent-soft), transparent 70%),
-    radial-gradient(ellipse 50% 55% at 78% 55%, var(--accent-2-soft), transparent 70%);
-  filter:blur(6px);
-  animation:mockGlow 5s ease-in-out infinite;
-  pointer-events:none;
-  z-index:0;
-}
-.mock__laptop,
-.mock__phone{
-  animation:mockFloat 6s ease-in-out infinite;
-  transform-origin:center;
-}
-.mock__phone{
-  animation-delay:.35s;
-}
-@keyframes mockFloat{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-7px); }
-}
-@keyframes mockGlow{
-  0%,100%{ opacity:.75; }
-  50%{ opacity:1; }
-}
-@media (prefers-reduced-motion: reduce){
-  .mock__laptop,
-  .mock__phone,
-  .mock__devices::before{ animation:none; }
+  height:100%;
+  border:0;
 }
 
 /* ---------- SECTION SCAFFOLDING ---------- */
