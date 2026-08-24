@@ -534,11 +534,6 @@ function initVersionSections() {
           <ul class="version__features">
             ${v.features.map((f) => `<li>${f}</li>`).join("")}
           </ul>
-          <dl class="version__specs">
-            <div><dt>Requisitos</dt><dd>${v.specs.requisitos}</dd></div>
-            <div><dt>Arquitectura</dt><dd>${v.specs.arquitectura}</dd></div>
-            <div><dt>Novedad técnica</dt><dd>${v.specs.novedad}</dd></div>
-          </dl>
         </div>
       </div>
     </article>`;
