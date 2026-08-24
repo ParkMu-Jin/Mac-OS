@@ -4,7 +4,7 @@
    Paleta: negro Apple + oro California (trail/topografía)
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Silkscreen:wght@400;700&family=Hanken+Grotesk:wght@400;600;700;800&family=PT+Sans:wght@400;700&display=swap');
 
 :root{
   --bg:            #000000;
@@ -185,6 +185,25 @@ h1,h2,h3,h4,p{ margin:0; }
   color:var(--text-dim);
   font-size:1.05rem;
 }
+/* --- adaptación del hero a la época activa (línea de tiempo) --- */
+[class*="theme-"] .eyebrow{
+  color:var(--v-accent,var(--accent));
+}
+[class*="theme-"] .eyebrow::before{
+  background:var(--v-accent,var(--accent));
+}
+[class*="theme-"] .hero::before{
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 0%,
+      color-mix(in srgb, var(--v-accent, #cda15b) 18%, transparent), transparent 70%),
+    radial-gradient(ellipse 55% 45% at 75% 10%,
+      color-mix(in srgb, var(--v-glow2, #5b8cff) 14%, transparent), transparent 70%);
+}
+[class*="theme-"] .hero h1 span{
+  background:linear-gradient(100deg, var(--v-accent,#cda15b), var(--v-glow2,#5b8cff));
+  -webkit-background-clip:text;
+  background-clip:text;
+}
 /* device / screenshot mock */
 .mock{
   position:relative;
@@ -256,15 +275,16 @@ h1,h2,h3,h4,p{ margin:0; }
 .trail{
   position:relative;
   padding-top:1rem;
+  scroll-margin-top:60px;
 }
 .trail__scroll{
-  overflow-x:auto;
-  padding-bottom:1.5rem;
-  scrollbar-width:thin;
+  /* deja aire arriba para el logo flotante que aparece sobre cada punto */
+  padding-top:5rem;
+  padding-bottom:.5rem;
 }
 .trail__track{
   position:relative;
-  min-width:960px;
+  width:100%;
   height:180px;
 }
 .trail__path{
@@ -273,76 +293,224 @@ h1,h2,h3,h4,p{ margin:0; }
 }
 .trail__path path{
   fill:none;
-  stroke:var(--line-strong);
+  stroke:var(--v-accent,var(--line-strong));
   stroke-width:2;
   stroke-dasharray:1 10;
   stroke-linecap:round;
+  vector-effect:non-scaling-stroke;
 }
 .trail__point{
   position:absolute;
   transform:translate(-50%,-50%);
   display:flex; flex-direction:column; align-items:center;
-  gap:.6rem;
+  gap:.45rem;
   background:none; border:none; color:var(--text);
   padding:0;
+  cursor:pointer;
+  opacity:0;
+  animation:trail-point-in .55s var(--ease) forwards;
+  animation-delay:var(--d, 0ms);
+}
+@keyframes trail-point-in{
+  from{ opacity:0; transform:translate(-50%,-20%); }
+  to{   opacity:1; transform:translate(-50%,-50%); }
+}
+@media (prefers-reduced-motion: reduce){
+  .trail__point{ animation:none; opacity:1; }
 }
 .trail__dot{
   width:14px; height:14px; border-radius:50%;
   background:var(--surface-2);
-  border:2px solid var(--accent);
+  border:2px solid var(--v-accent,var(--accent));
   transition:all .25s var(--ease);
 }
 .trail__point[aria-pressed="true"] .trail__dot{
-  background:var(--accent);
-  box-shadow:0 0 0 6px var(--accent-soft);
+  background:var(--v-accent,var(--accent));
+  box-shadow:0 0 0 6px color-mix(in srgb, var(--v-accent,var(--accent)) 16%, transparent), 0 0 24px color-mix(in srgb, var(--v-accent,var(--accent)) 35%, transparent);
 }
-.trail__label{
+.trail__num{
   font-family:var(--font-mono);
-  font-size:.72rem;
+  font-size:.6rem;
+  color:var(--text-dim);
+  width:22px; height:22px; border-radius:50%;
+  display:grid; place-items:center;
+  background:var(--surface);
+  border:1px solid var(--line-strong);
+  transition:all .25s var(--ease);
+}
+.trail__point:hover .trail__num,
+.trail__point:focus-visible .trail__num{ color:var(--v-accent,var(--accent)); border-color:var(--v-accent,var(--accent)); }
+.trail__point[aria-pressed="true"] .trail__num{
+  background:var(--v-accent,var(--accent)); border-color:var(--v-accent,var(--accent)); color:#000;
+}
+.trail__year{
+  font-family:var(--font-mono);
+  font-size:.88rem;
+  font-weight:700;
+  letter-spacing:.04em;
   color:var(--text-dim);
   white-space:nowrap;
+  transition:color .25s var(--ease);
 }
-.trail__point:hover .trail__label{ color:var(--text); }
+.trail__point:hover .trail__year,
+.trail__point:focus-visible .trail__year{ color:var(--v-accent,var(--accent)); }
+.trail__point[aria-pressed="true"] .trail__year{ color:var(--text); }
+
+/* etiqueta flotante con el nombre de la versión (hover / activo) */
+.trail__tip{
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + .5rem);
+  transform:translate(-50%, 8px) scale(.9);
+  opacity:0;
+  pointer-events:none;
+  white-space:nowrap;
+  font-family:var(--font-display);
+  font-size:.74rem;
+  font-weight:600;
+  letter-spacing:.01em;
+  color:var(--text);
+  background:var(--surface);
+  border:1px solid var(--accent);
+  border-radius:999px;
+  padding:.4rem .85rem;
+  box-shadow:0 10px 28px rgba(0,0,0,.5);
+  transition:
+    opacity .22s var(--ease),
+    transform .32s cubic-bezier(.34,1.56,.64,1);
+  z-index:5;
+}
+
+/* logo de la era: tarjeta que se adapta a la proporción de cada imagen,
+   visible solo en hover/focus y en el punto activo; fondo claro para que
+   resalten también los logos con trazos o fondos oscuros */
+.trail__logo{
+  position:absolute;
+  left:50%; bottom:calc(100% + 2.6rem);
+  height:120px; width:auto;
+  /* contain + ancho libre: el recuadro se ajusta a la imagen sin recortarla */
+  object-fit:contain;
+  /* anula el max-width:100% global de img */
+  max-width:none;
+  background:#f5f5f3;
+  border:2px solid var(--v-accent,var(--accent));
+  border-radius:8px;
+  box-shadow:0 14px 34px rgba(0,0,0,.55), 0 0 24px color-mix(in srgb, var(--v-accent,var(--accent)) 25%, transparent);
+  opacity:0;
+  pointer-events:none;
+  transform:translate(-50%, 10px) scale(.9);
+  transition:
+    opacity .22s var(--ease),
+    transform .3s cubic-bezier(.34,1.56,.64,1),
+    border-color .3s var(--ease);
+  z-index:6;
+}
+.trail__point:hover .trail__logo,
+.trail__point:focus-visible .trail__logo,
+.trail__point[aria-pressed="true"] .trail__logo{
+  opacity:1;
+  transform:translate(-50%, 0) scale(1);
+}
+.trail__tip::after{
+  content:"";
+  position:absolute;
+  left:50%; bottom:-4.5px;
+  width:8px; height:8px;
+  transform:translateX(-50%) rotate(45deg);
+  background:var(--surface);
+  border-right:1px solid var(--accent);
+  border-bottom:1px solid var(--accent);
+}
+.trail__point:hover .trail__tip,
+.trail__point:focus-visible .trail__tip,
+.trail__point[aria-pressed="true"] .trail__tip{
+  opacity:1;
+  transform:translate(-50%, 0) scale(1);
+}
 
 .trail__detail{
   margin-top:1rem;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:var(--radius-m);
-  padding:2.2rem;
+  padding:0;
+  scroll-margin-top:90px;
+}
+.trail__detail.is-swapping .trail__detail-body{
+  animation:detail-swap .45s var(--ease);
+}
+@keyframes detail-swap{
+  from{ opacity:.2; transform:translateY(8px); }
+  to{   opacity:1;   transform:none; }
+}
+
+/* ambiente de la sección tiñéndose con la época activa */
+.section{
+  position:relative;
+}
+.section .contenedor{ position:relative; z-index:1; }
+.section::before{
+  content:"";
+  position:absolute; inset:-6rem -12%;
+  background:radial-gradient(55% 55% at 50% 35%, var(--v-accent, transparent), transparent 70%);
+  opacity:0;
+  filter:blur(70px);
+  transition:opacity .9s var(--ease), background .9s var(--ease);
+  pointer-events:none;
+  z-index:0;
+}
+.section[class*="theme-"]::before{ opacity:.18; }
+
+/* escritorio de época dentro del panel (proporción nativa de las
+   ilustraciones 4:3 para que la escena quepa completa) */
+.oswall--panel,
+.trail__detail-shot{
+  aspect-ratio:4/3;
+  height:auto;
+  border-radius:var(--v-radius,14px);
+}
+/* dentro del monitor, .trail__detail-shot hereda dimensions del screen */
+.mac-monitor__screen .trail__detail-shot{
+  aspect-ratio:auto; height:100%;
+  border-radius:0;
+}
+.mac-monitor--timeline{
+  max-width:100%;
+  margin:0 auto;
+}
+.trail__detail-body{
   display:grid;
-  grid-template-columns:1.1fr 1fr;
+  grid-template-columns:1fr 1.15fr;
   gap:2.2rem;
   align-items:center;
+  padding:1.4rem 2.2rem 2rem;
 }
 .trail__detail-name{
+  font-family:var(--v-font-display,var(--font-display));
   font-size:1.7rem; font-weight:800; letter-spacing:-.02em;
+  margin-top:.3rem;
+  color:var(--v-text,var(--text));
 }
 .trail__detail-code{
-  color:var(--accent); font-family:var(--font-mono); font-size:.85rem; margin-top:.3rem;
+  color:var(--v-accent,var(--accent)); font-family:var(--font-mono); font-size:.85rem; margin-top:.3rem;
 }
 .trail__detail-summary{
-  color:var(--text-dim); margin-top:1rem; font-size:.95rem;
+  color:var(--v-dim,var(--text-dim)); margin-top:1rem; font-size:.95rem;
 }
 .trail__detail-features{
   margin-top:1.3rem;
   display:flex; flex-direction:column; gap:.55rem;
 }
 .trail__detail-features li{
-  font-size:.85rem; color:var(--text-dim);
+  font-size:.85rem; color:var(--v-dim,var(--text-dim));
   display:flex; gap:.6rem; align-items:baseline;
+  transition:transform .25s var(--ease), color .25s var(--ease);
+}
+.trail__detail-features li:hover{
+  transform:translateX(5px); color:var(--v-text,var(--text));
 }
 .trail__detail-features li::before{
-  content:"—"; color:var(--accent); flex:none;
-}
-.trail__detail-shot{
-  aspect-ratio:4/3;
-  border-radius:var(--radius-s);
-  background:var(--surface-2);
-  border:1px solid var(--line);
+  content:"—"; color:var(--v-accent,var(--accent)); flex:none;
 }
 
-/* ---------- VERSION SECTIONS ---------- */
+/* ---------- VERSION SECTIONS (ventanas de época) ---------- */
 .version{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -350,37 +518,927 @@ h1,h2,h3,h4,p{ margin:0; }
   align-items:center;
   padding:4.5rem 0;
   border-top:1px solid var(--line);
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
 }
-.version:nth-of-type(even) .version__media{ order:2; }
+.version.is-visible{ opacity:1; transform:none; }
+.version:nth-of-type(even) .mac-monitor{ order:2; }
+
+/* --- ventana del sistema operativo ---
+   Los valores por defecto de las variables viven en `main`
+   para que las variables de cada tema (.theme-v*) puedan
+   sobrescribirlas por herencia (especificidad 0,1,0 > 0,0,1). */
+main{
+  --v-radius:18px;
+  --v-bg:var(--surface);
+  --v-text:var(--text);
+  --v-dim:var(--text-dim);
+  --v-faint:var(--text-faint);
+  --v-line:var(--line);
+  --v-accent:var(--accent);
+  --v-chrome:var(--surface-3);
+  --v-title:var(--text-dim);
+}
+.oswin{
+  position:relative;
+  border-radius:var(--v-radius);
+  background:var(--v-bg);
+  color:var(--v-text);
+  border:1px solid var(--v-line);
+  box-shadow:0 24px 70px rgba(0,0,0,.55), 0 6px 20px rgba(0,0,0,.35);
+  overflow:hidden;
+  font-family:var(--v-font-body,var(--font-display));
+  transform:perspective(1200px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  transition:transform .25s ease-out, box-shadow .35s var(--ease);
+  will-change:transform;
+}
+.oswin:hover{
+  box-shadow:0 34px 90px rgba(0,0,0,.65), 0 10px 28px rgba(0,0,0,.4);
+}
+/* reflejo especular que sigue al cursor (visible en temas glass) */
+.oswin::after{
+  content:"";
+  position:absolute; inset:0;
+  border-radius:inherit;
+  background:radial-gradient(480px circle at var(--mx,-50%) var(--my,-50%), var(--v-glint,transparent), transparent 62%);
+  opacity:0;
+  transition:opacity .35s var(--ease);
+  pointer-events:none;
+}
+.oswin:hover::after{ opacity:1; }
+
+.oswin__chrome{
+  display:flex; align-items:center; gap:.7rem;
+  padding:.6rem 1rem;
+  background:var(--v-chrome);
+  border-bottom:1px solid var(--v-line);
+  font-family:var(--font-mono);
+  font-size:.68rem;
+  letter-spacing:.04em;
+  color:var(--v-title);
+}
+.oswin__title{
+  flex:1; text-align:center;
+  font-family:var(--v-font-display,var(--font-mono));
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.oswin__chrome-end{ width:46px; flex:none; }
+.oswin__lights{ display:flex; gap:.42rem; flex:none; }
+.oswin__lights i{
+  width:11px; height:11px; border-radius:50%;
+  transition:transform .2s var(--ease), filter .2s var(--ease);
+}
+.oswin:hover .oswin__lights i{ filter:brightness(1.15); }
+.oswin:hover .oswin__lights i:nth-child(1){ transform:scale(1.15); }
+.oswin__lights i:nth-child(1){ background:#ff5f57; box-shadow:inset 0 0 0 .5px rgba(0,0,0,.2); }
+.oswin__lights i:nth-child(2){ background:#febc2e; box-shadow:inset 0 0 0 .5px rgba(0,0,0,.2); }
+.oswin__lights i:nth-child(3){ background:#28c840; box-shadow:inset 0 0 0 .5px rgba(0,0,0,.2); }
+.oswin__box{
+  width:13px; height:13px; flex:none;
+  background:var(--v-boxbg,#fff);
+  border:1.5px solid var(--v-boxline,#222);
+  border-radius:3px;
+}
+
+.version__body{ padding:1.5rem 2.4rem 2.4rem; }
 .version__index{
   font-family:var(--font-mono);
-  color:var(--text-faint); font-size:.78rem;
+  color:var(--v-faint); font-size:.78rem;
 }
 .version__name{
-  font-size:clamp(1.6rem,3vw,2.2rem);
-  font-weight:800; letter-spacing:-.02em; margin-top:.4rem;
+  font-family:var(--v-font-display,var(--font-display));
+  font-size:clamp(1.55rem,3vw,2.2rem);
+  font-weight:800; letter-spacing:-.02em; margin-top:.25rem;
+  color:inherit;
 }
 .version__code{
-  color:var(--accent); font-family:var(--font-mono); font-size:.85rem; margin-top:.35rem;
+  color:var(--v-accent); font-family:var(--font-mono); font-size:.85rem; margin-top:.35rem;
 }
 .version__summary{
-  color:var(--text-dim); margin-top:1.1rem; font-size:.95rem;
+  color:var(--v-dim); margin-top:1.1rem; font-size:.95rem;
 }
 .version__specs{
   margin-top:1.6rem;
   display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;
-  border-top:1px solid var(--line); padding-top:1.3rem;
+  border-top:1px solid var(--v-line); padding-top:1.3rem;
 }
-.version__specs dt{ font-family:var(--font-mono); font-size:.68rem; color:var(--text-faint); text-transform:uppercase; letter-spacing:.08em; }
-.version__specs dd{ margin:.35rem 0 0; font-size:.95rem; font-weight:600; }
+.version__specs dt{ font-family:var(--font-mono); font-size:.68rem; color:var(--v-faint); text-transform:uppercase; letter-spacing:.08em; }
+.version__specs dd{ margin:.35rem 0 0; font-size:.95rem; font-weight:600; color:var(--v-text); }
 .version__features{ margin-top:1.4rem; display:flex; flex-direction:column; gap:.5rem; }
-.version__features li{ font-size:.88rem; color:var(--text-dim); padding-left:1.1rem; position:relative; }
-.version__features li::before{ content:""; position:absolute; left:0; top:.55em; width:6px; height:6px; border-radius:50%; background:var(--accent); }
-.version__media{
-  aspect-ratio:4/3;
-  border-radius:var(--radius-l);
+.version__features li{
+  font-size:.88rem; color:var(--v-dim); padding-left:1.15rem; position:relative;
+  transition:transform .25s var(--ease), color .25s var(--ease);
+}
+.version__features li:hover{ transform:translateX(6px); color:var(--v-text); }
+.version__features li::before{
+  content:""; position:absolute; left:0; top:.55em;
+  width:6px; height:6px; border-radius:50%;
+  background:var(--v-accent);
+}
+
+/* --- escritorio / wallpaper de época --- */
+.oswall{
+  position:relative;
+  width:100%; height:100%;
+  overflow:hidden;
   background:linear-gradient(160deg, var(--surface), var(--surface-2));
-  border:1px solid var(--line);
+  display:flex; align-items:center; justify-content:center;
+}
+/* cuando está dentro de un monitor, hereda el fondo del tema */
+.mac-monitor__screen .oswall{
+  border:none; border-radius:0;
+}
+.oswall__menubar{
+  position:absolute; top:0; left:0; right:0;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:.45rem .9rem;
+  font-family:var(--font-mono); font-size:.66rem; letter-spacing:.03em;
+  background:var(--v-menubar,rgba(255,255,255,.12));
+  color:var(--v-menutext,rgba(255,255,255,.85));
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  z-index:2;
+}
+.oswall__year{
+  font-family:var(--v-font-display,var(--font-display));
+  font-size:clamp(4.5rem,9vw,7.5rem);
+  font-weight:900;
+  letter-spacing:-.03em;
+  color:transparent;
+  -webkit-text-stroke:1.5px currentColor;
+  opacity:.28;
+  user-select:none;
+  transition:transform .5s var(--ease), opacity .5s var(--ease);
+}
+.oswall:hover .oswall__year{ transform:scale(1.05); opacity:.45; }
+.oswall__hint{
+  position:absolute; bottom:1rem; left:50%; transform:translateX(-50%);
+  font-family:var(--font-mono); font-size:.64rem; letter-spacing:.06em;
+  color:rgba(255,255,255,.75);
+  border:1px dashed rgba(255,255,255,.35);
+  border-radius:999px;
+  padding:.35rem .8rem;
+  white-space:nowrap;
+}
+
+/* ilustración de la era dentro del escritorio */
+.oswall__art{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  padding:2.2rem 1rem .8rem;
+  z-index:1;
+}
+.oswall__art svg{
+  width:100%; height:100%;
+  filter:drop-shadow(0 10px 24px rgba(0,0,0,.35));
+}
+/* escena completa de System 1.0: sin paddings ni barra duplicada */
+.theme-v1 .oswall{ background:#c8c5ba; }
+.theme-v1 .oswall__art{ padding:0; }
+.theme-v1 .oswall__art svg{ filter:none; }
+.theme-v1 .oswall__menubar{ display:none; }
+.theme-v1 .oswall__year{ display:none; }
+
+/* ============================================================
+   MAC MONITOR — marco de hardware por era
+   ============================================================ */
+.mac-monitor{
+  display:flex; flex-direction:column; align-items:center;
+  width:100%; max-width:480px;
+}
+.mac-monitor__body{
+  position:relative;
+  width:100%;
+  border-radius:var(--m-radius,14px);
+  background:var(--m-body,#b8bcc4);
+  padding:var(--m-bezel,10px) var(--m-bezel,10px) 0;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    inset 0 -1px 0 rgba(0,0,0,.15),
+    0 8px 32px rgba(0,0,0,.45);
+}
+.mac-monitor__screen{
+  position:relative;
+  width:100%;
+  aspect-ratio:var(--m-screen-ratio, 4/3);
+  border-radius:var(--m-screen-radius,3px);
+  overflow:hidden;
+  background:var(--m-screen-bg,#1a1a1a);
+  box-shadow:inset 0 1px 4px rgba(0,0,0,.5);
+}
+.mac-monitor__screen .oswall__menubar,
+.mac-monitor__screen .oswall__year,
+.mac-monitor__screen .oswall__art,
+.mac-monitor__screen .oswall__hint{
+  /* hereda positions de .oswall original */
+}
+.mac-monitor__chin{
+  display:flex; align-items:center; justify-content:space-between;
+  height:var(--m-chin-h,22px);
+  padding:0 var(--m-chin-px,12px);
+  background:var(--m-chin-bg,inherit);
+  border-radius:0 0 var(--m-radius,14px) var(--m-radius,14px);
+}
+.mac-monitor__logo{
+  width:var(--m-logo-w,10px); height:var(--m-logo-h,12px);
+  background:var(--m-logo-color,#555);
+  mask-size:contain; mask-repeat:no-repeat; mask-position:center;
+  -webkit-mask-size:contain; -webkit-mask-repeat:no-repeat; -webkit-mask-position:center;
+  opacity:.5;
+}
+.mac-monitor__power{
+  width:var(--m-power-size,6px); height:var(--m-power-size,6px); border-radius:50%;
+  background:var(--m-power-color,#4a7a3d);
+  box-shadow:0 0 3px var(--m-power-glow,rgba(74,122,61,.5));
+}
+.mac-monitor__neck{
+  width:var(--m-neck-w,50px);
+  height:var(--m-neck-h,28px);
+  background:var(--m-neck-bg,#a0a4ac);
+  clip-path:polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+  box-shadow:inset -2px 0 4px rgba(0,0,0,.12);
+}
+.mac-monitor__base{
+  width:var(--m-base-w,140px);
+  height:var(--m-base-h,14px);
+  background:var(--m-base-bg,#a8acb4);
+  border-radius:var(--m-base-radius, 0 0 8px 8px);
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.25),
+    0 4px 10px rgba(0,0,0,.3);
+}
+
+/* --- v1 · Macintosh 128K (1984) --- */
+.theme-v1 .mac-monitor{
+  --m-radius:16px 16px 4px 4px;
+  --m-body:#d4c9a8;
+  --m-bezel:10px;
+  --m-screen-radius:5px 5px 2px 2px;
+  --m-screen-bg:#0d0d0e;
+  --m-chin-h:38px;
+  --m-chin-px:14px;
+  --m-chin-bg:#d4c9a8;
+  --m-logo-w:10px; --m-logo-h:12px;
+  --m-logo-color:#5a5243;
+  --m-power-size:5px;
+  --m-power-color:#4a7a3d;
+  --m-neck-w:44px; --m-neck-h:18px;
+  --m-neck-bg:#c4ba9e;
+  --m-base-w:110px; --m-base-h:10px;
+  --m-base-bg:#c4ba9e;
+}
+.theme-v1 .mac-monitor__logo{
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 200'%3E%3Cpath d='M150.4 172.2c-3.2 7.2-6.9 13.9-11.2 20-6 8.4-10.8 14.2-14.4 17.4-5.6 5.2-11.6 7.8-18 7.8-4.6 0-10.1-1.3-16.6-4-6.5-2.7-12.4-4-17.8-4-5.6 0-11.7 1.3-18.2 4-6.5 2.6-11.7 3.9-15.6 3.9-6.6 0-12.8-2.6-18.6-7.8C24.4 204 19.2 197.6 13.6 189c-6-9.4-11-20.3-14.8-32.6C-5.2 143-7 131.6-7 120.6c0-12.6 2.7-23.4 8.2-32.4 4.3-7.2 10-12.9 17.2-17.2 7.2-4.2 14.9-6.4 23.2-6.6 4.8 0 11.1 1.5 18.8 4.4 7.7 2.9 12.6 4.4 14.8 4.4 1.6 0 7.2-1.7 16.6-5.2 8.9-3.2 16.4-4.5 22.4-4 16.4 1.4 28.8 7.8 37.2 19.2-14.8 9-22.1 21.6-22 37.8.2 12.6 4.7 23.1 13.5 31.5 4 3.8 8.5 6.8 13.5 8.9-1.1 3.2-2.2 6.2-3.4 9.2zM116.3 7.6c0 9.8-3.6 19-10.7 27.6-8.6 10.4-19.1 16.4-30.4 15.4-.1-1.2-.2-2.5-.2-3.8 0-9.4 4.1-19.4 11.4-27.6 3.6-4.2 8.3-7.7 14-10.5 5.7-2.8 11.1-4.3 16.2-4.5.1 1.3.2 2.6.2 3.8z' transform='translate(7 0)'/%3E%3C/svg%3E");
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 200'%3E%3Cpath d='M150.4 172.2c-3.2 7.2-6.9 13.9-11.2 20-6 8.4-10.8 14.2-14.4 17.4-5.6 5.2-11.6 7.8-18 7.8-4.6 0-10.1-1.3-16.6-4-6.5-2.7-12.4-4-17.8-4-5.6 0-11.7 1.3-18.2 4-6.5 2.6-11.7 3.9-15.6 3.9-6.6 0-12.8-2.6-18.6-7.8C24.4 204 19.2 197.6 13.6 189c-6-9.4-11-20.3-14.8-32.6C-5.2 143-7 131.6-7 120.6c0-12.6 2.7-23.4 8.2-32.4 4.3-7.2 10-12.9 17.2-17.2 7.2-4.2 14.9-6.4 23.2-6.6 4.8 0 11.1 1.5 18.8 4.4 7.7 2.9 12.6 4.4 14.8 4.4 1.6 0 7.2-1.7 16.6-5.2 8.9-3.2 16.4-4.5 22.4-4 16.4 1.4 28.8 7.8 37.2 19.2-14.8 9-22.1 21.6-22 37.8.2 12.6 4.7 23.1 13.5 31.5 4 3.8 8.5 6.8 13.5 8.9-1.1 3.2-2.2 6.2-3.4 9.2zM116.3 7.6c0 9.8-3.6 19-10.7 27.6-8.6 10.4-19.1 16.4-30.4 15.4-.1-1.2-.2-2.5-.2-3.8 0-9.4 4.1-19.4 11.4-27.6 3.6-4.2 8.3-7.7 14-10.5 5.7-2.8 11.1-4.3 16.2-4.5.1 1.3.2 2.6.2 3.8z' transform='translate(7 0)'/%3E%3C/svg%3E");
+}
+.theme-v1 .mac-monitor__chin{
+  justify-content:space-between;
+}
+.theme-v1 .mac-monitor__chin::after{
+  content:"";
+  position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
+  width:48px; height:2px;
+  background:repeating-linear-gradient(90deg,#e05643 0 3px,#f9a825 3px 6px,#4caf50 6px 9px,#2196f3 9px 12px,#9c27b0 12px 15px);
+  border-radius:1px;
+  opacity:.6;
+}
+
+/* --- v2 · Mac Classic / LC / 12" RGB Display (1991) --- */
+.theme-v2 .mac-monitor{
+  --m-radius:16px 16px 5px 5px;
+  --m-body:linear-gradient(180deg,#ddd5c0,#d0c8b2 40%,#c4bca6);
+  --m-bezel:14px;
+  --m-screen-radius:6px;
+  --m-screen-bg:#1c1d22;
+  --m-screen-ratio:4/3;
+  --m-chin-h:38px;
+  --m-chin-px:14px;
+  --m-chin-bg:linear-gradient(180deg,#d4ccb6,#c0b8a2);
+  --m-logo-w:10px; --m-logo-h:12px;
+  --m-logo-color:#7a7568;
+  --m-power-size:6px;
+  --m-power-color:#4a7a3d;
+  --m-neck-w:52px; --m-neck-h:22px;
+  --m-neck-bg:linear-gradient(180deg,#d0c8b2,#beb6a0);
+  --m-base-w:120px; --m-base-h:11px;
+  --m-base-bg:linear-gradient(180deg,#d0c8b2,#beb6a0);
+}
+.theme-v2 .mac-monitor__body{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    inset 0 -2px 0 rgba(0,0,0,.12),
+    inset 2px 0 0 rgba(255,255,255,.15),
+    inset -2px 0 0 rgba(0,0,0,.08),
+    0 8px 28px rgba(0,0,0,.35);
+}
+.theme-v2 .mac-monitor__logo{
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 200'%3E%3Cpath d='M150.4 172.2c-3.2 7.2-6.9 13.9-11.2 20-6 8.4-10.8 14.2-14.4 17.4-5.6 5.2-11.6 7.8-18 7.8-4.6 0-10.1-1.3-16.6-4-6.5-2.7-12.4-4-17.8-4-5.6 0-11.7 1.3-18.2 4-6.5 2.6-11.7 3.9-15.6 3.9-6.6 0-12.8-2.6-18.6-7.8C24.4 204 19.2 197.6 13.6 189c-6-9.4-11-20.3-14.8-32.6C-5.2 143-7 131.6-7 120.6c0-12.6 2.7-23.4 8.2-32.4 4.3-7.2 10-12.9 17.2-17.2 7.2-4.2 14.9-6.4 23.2-6.6 4.8 0 11.1 1.5 18.8 4.4 7.7 2.9 12.6 4.4 14.8 4.4 1.6 0 7.2-1.7 16.6-5.2 8.9-3.2 16.4-4.5 22.4-4 16.4 1.4 28.8 7.8 37.2 19.2-14.8 9-22.1 21.6-22 37.8.2 12.6 4.7 23.1 13.5 31.5 4 3.8 8.5 6.8 13.5 8.9-1.1 3.2-2.2 6.2-3.4 9.2zM116.3 7.6c0 9.8-3.6 19-10.7 27.6-8.6 10.4-19.1 16.4-30.4 15.4-.1-1.2-.2-2.5-.2-3.8 0-9.4 4.1-19.4 11.4-27.6 3.6-4.2 8.3-7.7 14-10.5 5.7-2.8 11.1-4.3 16.2-4.5.1 1.3.2 2.6.2 3.8z' transform='translate(7 0)'/%3E%3C/svg%3E");
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 200'%3E%3Cpath d='M150.4 172.2c-3.2 7.2-6.9 13.9-11.2 20-6 8.4-10.8 14.2-14.4 17.4-5.6 5.2-11.6 7.8-18 7.8-4.6 0-10.1-1.3-16.6-4-6.5-2.7-12.4-4-17.8-4-5.6 0-11.7 1.3-18.2 4-6.5 2.6-11.7 3.9-15.6 3.9-6.6 0-12.8-2.6-18.6-7.8C24.4 204 19.2 197.6 13.6 189c-6-9.4-11-20.3-14.8-32.6C-5.2 143-7 131.6-7 120.6c0-12.6 2.7-23.4 8.2-32.4 4.3-7.2 10-12.9 17.2-17.2 7.2-4.2 14.9-6.4 23.2-6.6 4.8 0 11.1 1.5 18.8 4.4 7.7 2.9 12.6 4.4 14.8 4.4 1.6 0 7.2-1.7 16.6-5.2 8.9-3.2 16.4-4.5 22.4-4 16.4 1.4 28.8 7.8 37.2 19.2-14.8 9-22.1 21.6-22 37.8.2 12.6 4.7 23.1 13.5 31.5 4 3.8 8.5 6.8 13.5 8.9-1.1 3.2-2.2 6.2-3.4 9.2zM116.3 7.6c0 9.8-3.6 19-10.7 27.6-8.6 10.4-19.1 16.4-30.4 15.4-.1-1.2-.2-2.5-.2-3.8 0-9.4 4.1-19.4 11.4-27.6 3.6-4.2 8.3-7.7 14-10.5 5.7-2.8 11.1-4.3 16.2-4.5.1 1.3.2 2.6.2 3.8z' transform='translate(7 0)'/%3E%3C/svg%3E");
+}
+/* controles laterales estilo 12" RGB Display — botones en el lado derecho */
+.theme-v2 .mac-monitor__screen::before{
+  content:"";
+  position:absolute; top:0; right:0; bottom:0; width:12px;
+  background:linear-gradient(180deg,#d8d0ba,#c4bca6);
+  border-left:1px solid rgba(0,0,0,.08);
+  z-index:3;
+}
+.theme-v2 .mac-monitor__screen::after{
+  content:"";
+  position:absolute; right:3px; top:10px;
+  width:6px; height:6px; border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,#b0a890,#8a8270);
+  box-shadow:0 1px 2px rgba(0,0,0,.25);
+  z-index:4;
+}
+
+/* --- v3 · Performa / Quadra / Multiple Scan 15 (1997): CRT beige grueso --- */
+.theme-v3 .mac-monitor{
+  --m-radius:18px 18px 6px 6px;
+  --m-body:linear-gradient(180deg,#ccc5b0,#c0b9a4 30%,#b0a994 60%,#a8a290);
+  --m-bezel:18px;
+  --m-screen-radius:8px;
+  --m-screen-bg:#1a1b20;
+  --m-screen-ratio:4/3;
+  --m-chin-h:44px;
+  --m-chin-px:16px;
+  --m-chin-bg:linear-gradient(180deg,#c4bda8,#b0a994 50%,#a49d88);
+  --m-logo-w:11px; --m-logo-h:13px;
+  --m-logo-color:#6e6858;
+  --m-power-size:7px;
+  --m-power-color:#3d8b37;
+  --m-neck-w:56px; --m-neck-h:26px;
+  --m-neck-bg:linear-gradient(180deg,#b8b19c,#a8a290);
+  --m-base-w:130px; --m-base-h:14px;
+  --m-base-bg:linear-gradient(180deg,#b8b19c,#a49d88);
+}
+.theme-v3 .mac-monitor__body{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.3),
+    inset 0 -2px 0 rgba(0,0,0,.18),
+    inset 3px 0 0 rgba(255,255,255,.12),
+    inset -3px 0 0 rgba(0,0,0,.08),
+    0 10px 36px rgba(0,0,0,.45);
+  border:1px solid rgba(0,0,0,.12);
+}
+.theme-v3 .mac-monitor__logo{
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 200'%3E%3Cpath d='M150.4 172.2c-3.2 7.2-6.9 13.9-11.2 20-6 8.4-10.8 14.2-14.4 17.4-5.6 5.2-11.6 7.8-18 7.8-4.6 0-10.1-1.3-16.6-4-6.5-2.7-12.4-4-17.8-4-5.6 0-11.7 1.3-18.2 4-6.5 2.6-11.7 3.9-15.6 3.9-6.6 0-12.8-2.6-18.6-7.8C24.4 204 19.2 197.6 13.6 189c-6-9.4-11-20.3-14.8-32.6C-5.2 143-7 131.6-7 120.6c0-12.6 2.7-23.4 8.2-32.4 4.3-7.2 10-12.9 17.2-17.2 7.2-4.2 14.9-6.4 23.2-6.6 4.8 0 11.1 1.5 18.8 4.4 7.7 2.9 12.6 4.4 14.8 4.4 1.6 0 7.2-1.7 16.6-5.2 8.9-3.2 16.4-4.5 22.4-4 16.4 1.4 28.8 7.8 37.2 19.2-14.8 9-22.1 21.6-22 37.8.2 12.6 4.7 23.1 13.5 31.5 4 3.8 8.5 6.8 13.5 8.9-1.1 3.2-2.2 6.2-3.4 9.2zM116.3 7.6c0 9.8-3.6 19-10.7 27.6-8.6 10.4-19.1 16.4-30.4 15.4-.1-1.2-.2-2.5-.2-3.8 0-9.4 4.1-19.4 11.4-27.6 3.6-4.2 8.3-7.7 14-10.5 5.7-2.8 11.1-4.3 16.2-4.5.1 1.3.2 2.6.2 3.8z' transform='translate(7 0)'/%3E%3C/svg%3E");
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 200'%3E%3Cpath d='M150.4 172.2c-3.2 7.2-6.9 13.9-11.2 20-6 8.4-10.8 14.2-14.4 17.4-5.6 5.2-11.6 7.8-18 7.8-4.6 0-10.1-1.3-16.6-4-6.5-2.7-12.4-4-17.8-4-5.6 0-11.7 1.3-18.2 4-6.5 2.6-11.7 3.9-15.6 3.9-6.6 0-12.8-2.6-18.6-7.8C24.4 204 19.2 197.6 13.6 189c-6-9.4-11-20.3-14.8-32.6C-5.2 143-7 131.6-7 120.6c0-12.6 2.7-23.4 8.2-32.4 4.3-7.2 10-12.9 17.2-17.2 7.2-4.2 14.9-6.4 23.2-6.6 4.8 0 11.1 1.5 18.8 4.4 7.7 2.9 12.6 4.4 14.8 4.4 1.6 0 7.2-1.7 16.6-5.2 8.9-3.2 16.4-4.5 22.4-4 16.4 1.4 28.8 7.8 37.2 19.2-14.8 9-22.1 21.6-22 37.8.2 12.6 4.7 23.1 13.5 31.5 4 3.8 8.5 6.8 13.5 8.9-1.1 3.2-2.2 6.2-3.4 9.2zM116.3 7.6c0 9.8-3.6 19-10.7 27.6-8.6 10.4-19.1 16.4-30.4 15.4-.1-1.2-.2-2.5-.2-3.8 0-9.4 4.1-19.4 11.4-27.6 3.6-4.2 8.3-7.7 14-10.5 5.7-2.8 11.1-4.3 16.2-4.5.1 1.3.2 2.6.2 3.8z' transform='translate(7 0)'/%3E%3C/svg%3E");
+}
+/* ranuras de ventilacion en la parte superior del body — sello CRT */
+.theme-v3 .mac-monitor__body::before{
+  content:"";
+  position:absolute; top:6px; left:50%; transform:translateX(-50%);
+  width:55%; height:4px;
+  background:repeating-linear-gradient(90deg,rgba(0,0,0,.12) 0 2px,transparent 2px 6px);
+  border-radius:1px;
+  z-index:2;
+}
+/* panel de control frontal — botones fisicos en el chin */
+.theme-v3 .mac-monitor__chin{
+  position:relative;
+  justify-content:center;
+  gap:10px;
+}
+/* ranuras de ventilacion en el chin */
+.theme-v3 .mac-monitor__chin::before{
+  content:"";
+  position:absolute; top:5px; left:50%; transform:translateX(-50%);
+  width:50%; height:3px;
+  background:repeating-linear-gradient(90deg,rgba(0,0,0,.15) 0 2px,transparent 2px 5px);
+  border-radius:1px;
+}
+/* fila de botones fisicos debajo de las ranuras */
+.theme-v3 .mac-monitor__chin::after{
+  content:"";
+  position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
+  width:65%; height:8px;
+  background:
+    linear-gradient(90deg,
+      transparent 0%,
+      rgba(0,0,0,.06) 8%, rgba(255,255,255,.12) 8.5%, rgba(255,255,255,.12) 14%, rgba(0,0,0,.06) 14.5%,
+      transparent 18%,
+      rgba(0,0,0,.06) 25%, rgba(255,255,255,.12) 25.5%, rgba(255,255,255,.12) 31%, rgba(0,0,0,.06) 31.5%,
+      transparent 35%,
+      rgba(0,0,0,.06) 42%, rgba(255,255,255,.12) 42.5%, rgba(255,255,255,.12) 48%, rgba(0,0,0,.06) 48.5%,
+      transparent 52%,
+      rgba(0,0,0,.06) 59%, rgba(255,255,255,.12) 59.5%, rgba(255,255,255,.12) 65%, rgba(0,0,0,.06) 65.5%,
+      transparent 69%,
+      rgba(0,0,0,.06) 76%, rgba(255,255,255,.12) 76.5%, rgba(255,255,255,.12) 82%, rgba(0,0,0,.06) 82.5%,
+      transparent 100%
+    );
+  border-radius:2px;
+  box-shadow:0 1px 1px rgba(0,0,0,.08);
+}
+
+/* --- v4 · Apple Studio Display CRT / Mac OS 9 (1999) --- */
+.theme-v4 .mac-monitor{
+  --m-radius:14px 14px 5px 5px;
+  --m-body:linear-gradient(180deg,#c8c8d2,#b8b8c4 40%,#aaabb8);
+  --m-bezel:12px;
+  --m-screen-radius:5px;
+  --m-screen-bg:#1e2128;
+  --m-screen-ratio:4/3;
+  --m-chin-h:28px;
+  --m-chin-px:12px;
+  --m-chin-bg:linear-gradient(180deg,#c0c0cc,#b0b0bc 50%,#a4a4b2);
+  --m-logo-w:9px; --m-logo-h:11px;
+  --m-logo-color:#7a7a88;
+  --m-power-size:5px;
+  --m-power-color:#3d8b37;
+  --m-neck-w:46px; --m-neck-h:22px;
+  --m-neck-bg:linear-gradient(180deg,#b8b8c4,#a8a8b6);
+  --m-base-w:115px; --m-base-h:11px;
+  --m-base-bg:linear-gradient(180deg,#b8b8c4,#a8a8b6);
+}
+.theme-v4 .mac-monitor__body{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.45),
+    inset 0 -1px 0 rgba(0,0,0,.12),
+    inset 2px 0 0 rgba(255,255,255,.18),
+    inset -2px 0 0 rgba(0,0,0,.06),
+    0 8px 28px rgba(0,0,0,.4);
+}
+.theme-v4 .mac-monitor__logo{
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 200'%3E%3Cpath d='M150.4 172.2c-3.2 7.2-6.9 13.9-11.2 20-6 8.4-10.8 14.2-14.4 17.4-5.6 5.2-11.6 7.8-18 7.8-4.6 0-10.1-1.3-16.6-4-6.5-2.7-12.4-4-17.8-4-5.6 0-11.7 1.3-18.2 4-6.5 2.6-11.7 3.9-15.6 3.9-6.6 0-12.8-2.6-18.6-7.8C24.4 204 19.2 197.6 13.6 189c-6-9.4-11-20.3-14.8-32.6C-5.2 143-7 131.6-7 120.6c0-12.6 2.7-23.4 8.2-32.4 4.3-7.2 10-12.9 17.2-17.2 7.2-4.2 14.9-6.4 23.2-6.6 4.8 0 11.1 1.5 18.8 4.4 7.7 2.9 12.6 4.4 14.8 4.4 1.6 0 7.2-1.7 16.6-5.2 8.9-3.2 16.4-4.5 22.4-4 16.4 1.4 28.8 7.8 37.2 19.2-14.8 9-22.1 21.6-22 37.8.2 12.6 4.7 23.1 13.5 31.5 4 3.8 8.5 6.8 13.5 8.9-1.1 3.2-2.2 6.2-3.4 9.2zM116.3 7.6c0 9.8-3.6 19-10.7 27.6-8.6 10.4-19.1 16.4-30.4 15.4-.1-1.2-.2-2.5-.2-3.8 0-9.4 4.1-19.4 11.4-27.6 3.6-4.2 8.3-7.7 14-10.5 5.7-2.8 11.1-4.3 16.2-4.5.1 1.3.2 2.6.2 3.8z' transform='translate(7 0)'/%3E%3C/svg%3E");
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 200'%3E%3Cpath d='M150.4 172.2c-3.2 7.2-6.9 13.9-11.2 20-6 8.4-10.8 14.2-14.4 17.4-5.6 5.2-11.6 7.8-18 7.8-4.6 0-10.1-1.3-16.6-4-6.5-2.7-12.4-4-17.8-4-5.6 0-11.7 1.3-18.2 4-6.5 2.6-11.7 3.9-15.6 3.9-6.6 0-12.8-2.6-18.6-7.8C24.4 204 19.2 197.6 13.6 189c-6-9.4-11-20.3-14.8-32.6C-5.2 143-7 131.6-7 120.6c0-12.6 2.7-23.4 8.2-32.4 4.3-7.2 10-12.9 17.2-17.2 7.2-4.2 14.9-6.4 23.2-6.6 4.8 0 11.1 1.5 18.8 4.4 7.7 2.9 12.6 4.4 14.8 4.4 1.6 0 7.2-1.7 16.6-5.2 8.9-3.2 16.4-4.5 22.4-4 16.4 1.4 28.8 7.8 37.2 19.2-14.8 9-22.1 21.6-22 37.8.2 12.6 4.7 23.1 13.5 31.5 4 3.8 8.5 6.8 13.5 8.9-1.1 3.2-2.2 6.2-3.4 9.2zM116.3 7.6c0 9.8-3.6 19-10.7 27.6-8.6 10.4-19.1 16.4-30.4 15.4-.1-1.2-.2-2.5-.2-3.8 0-9.4 4.1-19.4 11.4-27.6 3.6-4.2 8.3-7.7 14-10.5 5.7-2.8 11.1-4.3 16.2-4.5.1 1.3.2 2.6.2 3.8z' transform='translate(7 0)'/%3E%3C/svg%3E");
+}
+/* boton de control fronta bajo el bezel — Apple Studio Display 1999 */
+.theme-v4 .mac-monitor__chin{
+  position:relative;
+  justify-content:center;
+  gap:8px;
+}
+.theme-v4 .mac-monitor__chin::before{
+  content:"";
+  position:absolute; bottom:7px; left:50%; transform:translateX(-50%);
+  width:55%; height:7px;
+  background:
+    linear-gradient(90deg,
+      transparent 0%,
+      rgba(0,0,0,.05) 12%, rgba(255,255,255,.15) 12.5%, rgba(255,255,255,.15) 22%, rgba(0,0,0,.05) 22.5%,
+      transparent 28%,
+      rgba(0,0,0,.05) 40%, rgba(255,255,255,.15) 40.5%, rgba(255,255,255,.15) 50%, rgba(0,0,0,.05) 50.5%,
+      transparent 56%,
+      rgba(0,0,0,.05) 68%, rgba(255,255,255,.15) 68.5%, rgba(255,255,255,.15) 78%, rgba(0,0,0,.05) 78.5%,
+      transparent 100%
+    );
+  border-radius:2px;
+  box-shadow:0 1px 1px rgba(0,0,0,.06);
+}
+
+/* --- v5 · iMac G4 "Sunflower" (2001) --- */
+.theme-v5 .mac-monitor{
+  --m-radius:16px 16px 6px 6px;
+  --m-body:linear-gradient(180deg,#f2f2f4,#e4e4e8 40%,#dcdce0);
+  --m-bezel:18px;
+  --m-screen-radius:3px;
+  --m-screen-bg:#0a1524;
+  --m-screen-ratio:4/3;
+  --m-chin-h:28px;
+  --m-chin-px:0;
+  --m-chin-bg:linear-gradient(180deg,#e8e8ec,#dcdce0);
+  --m-logo-w:0; --m-logo-h:0;
+  --m-neck-w:16px; --m-neck-h:36px;
+  --m-neck-bg:linear-gradient(90deg,#b0b0b4,#d0d0d4 25%,#e8e8ec 45%,#a0a0a4 65%,#c0c0c4);
+  --m-base-w:160px; --m-base-h:64px;
+  --m-base-bg:radial-gradient(ellipse at 50% 30%,#f4f4f6,#e8e8ec 35%,#d4d4d8 60%,#c0c0c4 85%,#b0b0b4);
+  --m-base-radius:50%;
+}
+.theme-v5 .mac-monitor__body{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.8),
+    inset 0 -1px 0 rgba(0,0,0,.06),
+    inset 1px 0 0 rgba(255,255,255,.4),
+    inset -1px 0 0 rgba(0,0,0,.04),
+    0 14px 44px rgba(0,0,0,.32);
+  border-radius:var(--m-radius);
+  border:1px solid rgba(0,0,0,.06);
+}
+.theme-v5 .mac-monitor__screen{
+  box-shadow:
+    inset 0 1px 4px rgba(0,0,0,.5),
+    inset 0 0 1px rgba(0,0,0,.3);
+}
+.theme-v5 .mac-monitor__chin{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:var(--m-chin-h);
+  background:var(--m-chin-bg);
+  border-radius:0 0 var(--m-radius) var(--m-radius);
+  position:relative;
+}
+.theme-v5 .mac-monitor__chin::after{
+  content:"iMac";
+  font-family:"SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:10px;
+  font-weight:300;
+  letter-spacing:1px;
+  color:#a8a8ac;
+  text-transform:none;
+}
+.theme-v5 .mac-monitor__neck{
+  clip-path:none;
+  border-radius:3px;
+  background:linear-gradient(90deg,#b0b0b4,#d0d0d4 25%,#e8e8ec 45%,#a0a0a4 65%,#c0c0c4);
+  box-shadow:
+    inset 3px 0 4px rgba(255,255,255,.4),
+    inset -3px 0 4px rgba(0,0,0,.1),
+    2px 0 4px rgba(0,0,0,.08);
+}
+.theme-v5 .mac-monitor__base{
+  border-radius:50%;
+  height:var(--m-base-h);
+  width:var(--m-base-w);
+  background:radial-gradient(ellipse at 50% 30%,#f4f4f6,#e8e8ec 35%,#d4d4d8 60%,#c0c0c4 85%,#b0b0b4);
+  box-shadow:
+    inset 0 6px 12px rgba(255,255,255,.5),
+    inset 0 -6px 12px rgba(0,0,0,.12),
+    inset 4px 0 8px rgba(255,255,255,.2),
+    inset -4px 0 8px rgba(0,0,0,.06),
+    0 8px 20px rgba(0,0,0,.28);
+  position:relative;
+}
+.theme-v5 .mac-monitor__base::before{
+  content:"";
+  position:absolute;
+  top:48%; left:50%;
+  transform:translate(-50%,-50%);
+  width:20px; height:24px;
+  background:currentColor;
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 200'%3E%3Cpath d='M150.4 172.2c-3.2 7.2-6.9 13.9-11.2 20-6 8.4-10.8 14.2-14.4 17.4-5.6 5.2-11.6 7.8-18 7.8-4.6 0-10.1-1.3-16.6-4-6.5-2.7-12.4-4-17.8-4-5.6 0-11.7 1.3-18.2 4-6.5 2.6-11.7 3.9-15.6 3.9-6.6 0-12.8-2.6-18.6-7.8C24.4 204 19.2 197.6 13.6 189c-6-9.4-11-20.3-14.8-32.6C-5.2 143-7 131.6-7 120.6c0-12.6 2.7-23.4 8.2-32.4 4.3-7.2 10-12.9 17.2-17.2 7.2-4.2 14.9-6.4 23.2-6.6 4.8 0 11.1 1.5 18.8 4.4 7.7 2.9 12.6 4.4 14.8 4.4 1.6 0 7.2-1.7 16.6-5.2 8.9-3.2 16.4-4.5 22.4-4 16.4 1.4 28.8 7.8 37.2 19.2-14.8 9-22.1 21.6-22 37.8.2 12.6 4.7 23.1 13.5 31.5 4 3.8 8.5 6.8 13.5 8.9-1.1 3.2-2.2 6.2-3.4 9.2zM116.3 7.6c0 9.8-3.6 19-10.7 27.6-8.6 10.4-19.1 16.4-30.4 15.4-.1-1.2-.2-2.5-.2-3.8 0-9.4 4.1-19.4 11.4-27.6 3.6-4.2 8.3-7.7 14-10.5 5.7-2.8 11.1-4.3 16.2-4.5.1 1.3.2 2.6.2 3.8z' transform='translate(7 0)'/%3E%3C/svg%3E");
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 200'%3E%3Cpath d='M150.4 172.2c-3.2 7.2-6.9 13.9-11.2 20-6 8.4-10.8 14.2-14.4 17.4-5.6 5.2-11.6 7.8-18 7.8-4.6 0-10.1-1.3-16.6-4-6.5-2.7-12.4-4-17.8-4-5.6 0-11.7 1.3-18.2 4-6.5 2.6-11.7 3.9-15.6 3.9-6.6 0-12.8-2.6-18.6-7.8C24.4 204 19.2 197.6 13.6 189c-6-9.4-11-20.3-14.8-32.6C-5.2 143-7 131.6-7 120.6c0-12.6 2.7-23.4 8.2-32.4 4.3-7.2 10-12.9 17.2-17.2 7.2-4.2 14.9-6.4 23.2-6.6 4.8 0 11.1 1.5 18.8 4.4 7.7 2.9 12.6 4.4 14.8 4.4 1.6 0 7.2-1.7 16.6-5.2 8.9-3.2 16.4-4.5 22.4-4 16.4 1.4 28.8 7.8 37.2 19.2-14.8 9-22.1 21.6-22 37.8.2 12.6 4.7 23.1 13.5 31.5 4 3.8 8.5 6.8 13.5 8.9-1.1 3.2-2.2 6.2-3.4 9.2zM116.3 7.6c0 9.8-3.6 19-10.7 27.6-8.6 10.4-19.1 16.4-30.4 15.4-.1-1.2-.2-2.5-.2-3.8 0-9.4 4.1-19.4 11.4-27.6 3.6-4.2 8.3-7.7 14-10.5 5.7-2.8 11.1-4.3 16.2-4.5.1 1.3.2 2.6.2 3.8z' transform='translate(7 0)'/%3E%3C/svg%3E");
+  mask-size:contain; -webkit-mask-size:contain;
+  mask-repeat:no-repeat; -webkit-mask-repeat:no-repeat;
+  color:#b8b8bc;
+  opacity:.55;
+}
+.theme-v5 .mac-monitor__logo{ display:none; }
+.theme-v5 .mac-monitor__power{
+  position:absolute; bottom:-54px; left:50%; transform:translateX(-50%);
+  width:6px; height:6px;
+  background:radial-gradient(circle at 40% 35%,#5cb85c,#3d8b37);
+  box-shadow:0 0 4px rgba(74,122,61,.5);
+  border-radius:50%;
+}
+
+/* --- v6 · iMac Aluminum (2014) --- */
+.theme-v6 .mac-monitor{
+  --m-radius:6px;
+  --m-body:linear-gradient(180deg,#d2d4d8,#c0c2c6);
+  --m-bezel:4px;
+  --m-screen-radius:2px;
+  --m-screen-bg:#16222e;
+  --m-chin-h:18px;
+  --m-chin-px:8px;
+  --m-chin-bg:linear-gradient(180deg,#d2d4d8,#c0c2c6);
+  --m-logo-w:7px; --m-logo-h:9px;
+  --m-logo-color:#8a8c92;
+  --m-power-size:4px;
+  --m-power-color:#3d8b37;
+  --m-neck-w:28px; --m-neck-h:24px;
+  --m-neck-bg:linear-gradient(180deg,#c8cacE,#b4b6ba);
+  --m-base-w:80px; --m-base-h:7px;
+  --m-base-bg:#b8bac0;
+}
+.theme-v6 .mac-monitor__body{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.5),
+    0 8px 28px rgba(0,0,0,.4);
+}
+.theme-v6 .mac-monitor__neck{
+  clip-path:polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+}
+.theme-v6 .mac-monitor__logo{
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 200'%3E%3Cpath d='M150.4 172.2c-3.2 7.2-6.9 13.9-11.2 20-6 8.4-10.8 14.2-14.4 17.4-5.6 5.2-11.6 7.8-18 7.8-4.6 0-10.1-1.3-16.6-4-6.5-2.7-12.4-4-17.8-4-5.6 0-11.7 1.3-18.2 4-6.5 2.6-11.7 3.9-15.6 3.9-6.6 0-12.8-2.6-18.6-7.8C24.4 204 19.2 197.6 13.6 189c-6-9.4-11-20.3-14.8-32.6C-5.2 143-7 131.6-7 120.6c0-12.6 2.7-23.4 8.2-32.4 4.3-7.2 10-12.9 17.2-17.2 7.2-4.2 14.9-6.4 23.2-6.6 4.8 0 11.1 1.5 18.8 4.4 7.7 2.9 12.6 4.4 14.8 4.4 1.6 0 7.2-1.7 16.6-5.2 8.9-3.2 16.4-4.5 22.4-4 16.4 1.4 28.8 7.8 37.2 19.2-14.8 9-22.1 21.6-22 37.8.2 12.6 4.7 23.1 13.5 31.5 4 3.8 8.5 6.8 13.5 8.9-1.1 3.2-2.2 6.2-3.4 9.2zM116.3 7.6c0 9.8-3.6 19-10.7 27.6-8.6 10.4-19.1 16.4-30.4 15.4-.1-1.2-.2-2.5-.2-3.8 0-9.4 4.1-19.4 11.4-27.6 3.6-4.2 8.3-7.7 14-10.5 5.7-2.8 11.1-4.3 16.2-4.5.1 1.3.2 2.6.2 3.8z' transform='translate(7 0)'/%3E%3C/svg%3E");
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 200'%3E%3Cpath d='M150.4 172.2c-3.2 7.2-6.9 13.9-11.2 20-6 8.4-10.8 14.2-14.4 17.4-5.6 5.2-11.6 7.8-18 7.8-4.6 0-10.1-1.3-16.6-4-6.5-2.7-12.4-4-17.8-4-5.6 0-11.7 1.3-18.2 4-6.5 2.6-11.7 3.9-15.6 3.9-6.6 0-12.8-2.6-18.6-7.8C24.4 204 19.2 197.6 13.6 189c-6-9.4-11-20.3-14.8-32.6C-5.2 143-7 131.6-7 120.6c0-12.6 2.7-23.4 8.2-32.4 4.3-7.2 10-12.9 17.2-17.2 7.2-4.2 14.9-6.4 23.2-6.6 4.8 0 11.1 1.5 18.8 4.4 7.7 2.9 12.6 4.4 14.8 4.4 1.6 0 7.2-1.7 16.6-5.2 8.9-3.2 16.4-4.5 22.4-4 16.4 1.4 28.8 7.8 37.2 19.2-14.8 9-22.1 21.6-22 37.8.2 12.6 4.7 23.1 13.5 31.5 4 3.8 8.5 6.8 13.5 8.9-1.1 3.2-2.2 6.2-3.4 9.2zM116.3 7.6c0 9.8-3.6 19-10.7 27.6-8.6 10.4-19.1 16.4-30.4 15.4-.1-1.2-.2-2.5-.2-3.8 0-9.4 4.1-19.4 11.4-27.6 3.6-4.2 8.3-7.7 14-10.5 5.7-2.8 11.1-4.3 16.2-4.5.1 1.3.2 2.6.2 3.8z' transform='translate(7 0)'/%3E%3C/svg%3E");
+}
+
+/* --- v7 · iMac M1 / Big Sur (2020) --- */
+.theme-v7 .mac-monitor{
+  --m-radius:8px;
+  --m-body:linear-gradient(180deg,#e0e0e2,#d0d0d4);
+  --m-bezel:3px;
+  --m-screen-radius:3px;
+  --m-screen-bg:#191922;
+  --m-chin-h:14px;
+  --m-chin-px:6px;
+  --m-chin-bg:linear-gradient(180deg,#e0e0e2,#d0d0d4);
+  --m-logo-w:6px; --m-logo-h:7px;
+  --m-logo-color:#a0a2a8;
+  --m-power-size:3px;
+  --m-power-color:#3d8b37;
+  --m-neck-w:24px; --m-neck-h:22px;
+  --m-neck-bg:linear-gradient(180deg,#d4d4d8,#bcbcc0);
+  --m-base-w:70px; --m-base-h:6px;
+  --m-base-bg:#c0c2c6;
+}
+.theme-v7 .mac-monitor__body{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.55),
+    0 10px 32px rgba(0,0,0,.4);
+}
+.theme-v7 .mac-monitor__neck{
+  clip-path:polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%);
+}
+.theme-v7 .mac-monitor__logo{
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 200'%3E%3Cpath d='M150.4 172.2c-3.2 7.2-6.9 13.9-11.2 20-6 8.4-10.8 14.2-14.4 17.4-5.6 5.2-11.6 7.8-18 7.8-4.6 0-10.1-1.3-16.6-4-6.5-2.7-12.4-4-17.8-4-5.6 0-11.7 1.3-18.2 4-6.5 2.6-11.7 3.9-15.6 3.9-6.6 0-12.8-2.6-18.6-7.8C24.4 204 19.2 197.6 13.6 189c-6-9.4-11-20.3-14.8-32.6C-5.2 143-7 131.6-7 120.6c0-12.6 2.7-23.4 8.2-32.4 4.3-7.2 10-12.9 17.2-17.2 7.2-4.2 14.9-6.4 23.2-6.6 4.8 0 11.1 1.5 18.8 4.4 7.7 2.9 12.6 4.4 14.8 4.4 1.6 0 7.2-1.7 16.6-5.2 8.9-3.2 16.4-4.5 22.4-4 16.4 1.4 28.8 7.8 37.2 19.2-14.8 9-22.1 21.6-22 37.8.2 12.6 4.7 23.1 13.5 31.5 4 3.8 8.5 6.8 13.5 8.9-1.1 3.2-2.2 6.2-3.4 9.2zM116.3 7.6c0 9.8-3.6 19-10.7 27.6-8.6 10.4-19.1 16.4-30.4 15.4-.1-1.2-.2-2.5-.2-3.8 0-9.4 4.1-19.4 11.4-27.6 3.6-4.2 8.3-7.7 14-10.5 5.7-2.8 11.1-4.3 16.2-4.5.1 1.3.2 2.6.2 3.8z' transform='translate(7 0)'/%3E%3C/svg%3E");
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 200'%3E%3Cpath d='M150.4 172.2c-3.2 7.2-6.9 13.9-11.2 20-6 8.4-10.8 14.2-14.4 17.4-5.6 5.2-11.6 7.8-18 7.8-4.6 0-10.1-1.3-16.6-4-6.5-2.7-12.4-4-17.8-4-5.6 0-11.7 1.3-18.2 4-6.5 2.6-11.7 3.9-15.6 3.9-6.6 0-12.8-2.6-18.6-7.8C24.4 204 19.2 197.6 13.6 189c-6-9.4-11-20.3-14.8-32.6C-5.2 143-7 131.6-7 120.6c0-12.6 2.7-23.4 8.2-32.4 4.3-7.2 10-12.9 17.2-17.2 7.2-4.2 14.9-6.4 23.2-6.6 4.8 0 11.1 1.5 18.8 4.4 7.7 2.9 12.6 4.4 14.8 4.4 1.6 0 7.2-1.7 16.6-5.2 8.9-3.2 16.4-4.5 22.4-4 16.4 1.4 28.8 7.8 37.2 19.2-14.8 9-22.1 21.6-22 37.8.2 12.6 4.7 23.1 13.5 31.5 4 3.8 8.5 6.8 13.5 8.9-1.1 3.2-2.2 6.2-3.4 9.2zM116.3 7.6c0 9.8-3.6 19-10.7 27.6-8.6 10.4-19.1 16.4-30.4 15.4-.1-1.2-.2-2.5-.2-3.8 0-9.4 4.1-19.4 11.4-27.6 3.6-4.2 8.3-7.7 14-10.5 5.7-2.8 11.1-4.3 16.2-4.5.1 1.3.2 2.6.2 3.8z' transform='translate(7 0)'/%3E%3C/svg%3E");
+}
+
+/* --- v8 · Apple Studio Display / Tahoe (2025) --- */
+.theme-v8 .mac-monitor{
+  --m-radius:10px;
+  --m-body:linear-gradient(180deg,#3a3a3e,#2a2a2e);
+  --m-bezel:3px;
+  --m-screen-radius:6px;
+  --m-screen-bg:#101b2c;
+  --m-chin-h:12px;
+  --m-chin-px:6px;
+  --m-chin-bg:#1a1a1e;
+  --m-logo-w:0; --m-logo-h:0;
+  --m-power-size:4px;
+  --m-power-color:#7dd8ff;
+  --m-neck-w:22px; --m-neck-h:18px;
+  --m-neck-bg:linear-gradient(180deg,#3a3a3e,#2e2e32);
+  --m-base-w:65px; --m-base-h:6px;
+  --m-base-bg:#3a3a3e;
+}
+.theme-v8 .mac-monitor__body{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    0 10px 36px rgba(0,0,0,.55);
+  border:1px solid rgba(255,255,255,.08);
+}
+.theme-v8 .mac-monitor__neck{
+  clip-path:polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
+}
+.theme-v8 .mac-monitor__chin{
+  background:#1a1a1e;
+  justify-content:center;
+}
+.theme-v8 .mac-monitor__power{
+  background:radial-gradient(circle at 40% 35%,#7dd8ff,#4a9cc8);
+  box-shadow:0 0 5px rgba(125,216,255,.5);
+  width:4px; height:4px;
+}
+
+/* ============================================================
+   TEMAS POR ERA — cada ficha viste como su sistema operativo
+   ============================================================ */
+
+/* --- v1 · System 1.0 (1984): 1-bit invertido, title bar rayada --- */
+.theme-v1{
+  --v-radius:12px;
+  --v-bg:#0d0d0e;
+  --v-text:#f0ede3;
+  --v-dim:#b3ad9a;
+  --v-faint:#7d7768;
+  --v-line:#2c2a24;
+  --v-accent:#cda15b;
+  --v-glow2:#9c9483;
+  --v-chrome:repeating-linear-gradient(180deg,#26251f 0 1px,#101010 1px 2px);
+  --v-title:#cfccc0;
+  --v-font-display:'Silkscreen', 'JetBrains Mono', monospace;
+  --v-font-body:'JetBrains Mono', ui-monospace, monospace;
+  --v-boxbg:#111110;
+  --v-boxline:#f0ede3;
+  --v-shadow:8px 8px 0 rgba(205,161,91,.28);
+}
+.theme-v1 .oswin{ border-width:2px; }
+.theme-v1 .oswall{
+  background:
+    conic-gradient(rgba(0,0,0,.07) 25%, transparent 0 50%, rgba(0,0,0,.07) 0 75%, transparent 0) 0 0/4px 4px,
+    #f5f3ea;
+  color:#16140f;
+}
+.theme-v1 .oswall__year{ -webkit-text-stroke-color:#16140f; opacity:.22; }
+.theme-v1 .oswall__menubar{ background:#16140f; color:#f0ede3; backdrop-filter:none; }
+.theme-v1 .oswall__hint{ color:#4c483d; border-color:#847e6e; }
+
+/* --- v2 · System 7 (1991): gris claro → carbón, primer toque de color --- */
+.theme-v2{
+  --v-radius:12px;
+  --v-bg:#121317;
+  --v-text:#eceef2;
+  --v-dim:#a7abb5;
+  --v-faint:#757984;
+  --v-line:#2b2e37;
+  --v-accent:#6a9bd8;
+  --v-glow2:#8fb8e8;
+  --v-chrome:linear-gradient(#22242b,#17181d);
+  --v-title:#c6c9d2;
+  --v-font-display:'Silkscreen', 'JetBrains Mono', monospace;
+  --v-font-body:'JetBrains Mono', ui-monospace, monospace;
+  --v-boxbg:#15161a;
+  --v-boxline:#eceef2;
+  --v-shadow:0 14px 34px rgba(0,0,0,.6);
+}
+.theme-v2 .oswall{ background:linear-gradient(165deg,#dfe3ea,#c3cad6); color:#1c1d22; }
+.theme-v2 .oswall__menubar{ background:rgba(255,255,255,.65); color:#3a3b41; }
+.theme-v2 .oswall__year{ -webkit-text-stroke-color:#1c1d22; }
+.theme-v2 .oswall__hint{ color:#4d4f58; border-color:#83858e; }
+
+/* --- v3 · Mac OS 8 (1997): Platinum oscuro con biselado 3D --- */
+.theme-v3{
+  --v-radius:12px;
+  --v-bg:linear-gradient(180deg,#1d2027,#14161b);
+  --v-text:#e8ebf2;
+  --v-dim:#a3a9b6;
+  --v-faint:#6f7683;
+  --v-line:#343945;
+  --v-accent:#8a9cd0;
+  --v-glow2:#aab4cc;
+  --v-chrome:linear-gradient(#262a33,#191c23);
+  --v-title:#c3c8d4;
+  --v-font-display:'Hanken Grotesk', sans-serif;
+  --v-font-body:'Hanken Grotesk', sans-serif;
+  --v-boxbg:#181b21;
+  --v-boxline:#8a9cd0;
+  --v-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.08),
+    inset -1px -1px 0 rgba(0,0,0,.65),
+    0 16px 40px rgba(0,0,0,.55);
+}
+.theme-v3 .oswin{ border:1px solid #343945; }
+.theme-v3 .oswall{ background:linear-gradient(180deg,#e6e9ee,#cdd2da); color:#20232a; }
+.theme-v3 .oswall__menubar{ background:linear-gradient(90deg,#c8ccd4,#eef0f4); color:#3c4048; backdrop-filter:none; }
+.theme-v3 .oswall__year{ -webkit-text-stroke-color:#20232a; }
+
+/* --- v4 · Mac OS 9 (1999): Platinum oscuro pulido, multigris --- */
+.theme-v4{
+  --v-radius:14px;
+  --v-bg:linear-gradient(180deg,#1e2129 0%,#171a20 60%,#12141a 100%);
+  --v-text:#eceef4;
+  --v-dim:#a5abb8;
+  --v-faint:#707684;
+  --v-line:#393e4b;
+  --v-accent:#b08ad0;
+  --v-glow2:#cba8e6;
+  --v-chrome:linear-gradient(#272b34,#191c23);
+  --v-title:#c6cbd8;
+  --v-font-display:'Hanken Grotesk', sans-serif;
+  --v-font-body:'Hanken Grotesk', sans-serif;
+  --v-boxbg:#16181e;
+  --v-boxline:#b08ad0;
+  --v-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.07),
+    inset -1px -1px 0 rgba(0,0,0,.7),
+    inset 0 -14px 22px rgba(120,128,142,.08),
+    0 18px 44px rgba(0,0,0,.55);
+}
+.theme-v4 .oswin{ border:1px solid #393e4b; }
+.theme-v4 .oswall{ background:radial-gradient(120% 100% at 50% 0%,#eff1f5,#c9ced8); color:#1e2128; }
+.theme-v4 .oswall__menubar{ background:linear-gradient(90deg,#d4d8e0,#f2f4f8,#d4d8e0); color:#33363e; backdrop-filter:none; }
+.theme-v4 .oswall__year{ -webkit-text-stroke-color:#1e2128; }
+
+/* --- v5 · Cheetah (2001): Aqua oscuro — pinstripes y gel azul --- */
+.theme-v5{
+  --v-radius:14px;
+  --v-bg:#0a1524;
+  --v-text:#eaf3ff;
+  --v-dim:#9db9dd;
+  --v-faint:#66809f;
+  --v-line:#24405f;
+  --v-accent:#35b6ff;
+  --v-glow2:#1e63d0;
+  --v-chrome:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.4) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg,#a9c9f2,#5b87c8);
+  --v-title:#f4f8ff;
+  --v-font-display:'PT Sans', 'Trebuchet MS', sans-serif;
+  --v-font-body:'PT Sans', 'Trebuchet MS', sans-serif;
+  --v-shadow:0 26px 60px rgba(30,99,208,.28), 0 10px 24px rgba(0,0,0,.35);
+}
+.theme-v5 .oswin__title{ text-shadow:0 1px 2px rgba(10,30,70,.55); font-weight:600; }
+.theme-v5 .oswin__box{
+  width:auto; height:auto; padding:0 1.1rem; border-radius:999px;
+  background:linear-gradient(180deg,#9fd0ff,#2a72d4 45%,#1a56ad 55%,#4a92e6);
+  border:1px solid #164a99;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.7);
+}
+.theme-v5 .oswall{
+  background:
+    radial-gradient(90% 90% at 50% 110%, rgba(122,190,255,.55), transparent 60%),
+    linear-gradient(180deg,#3f7fd4,#1a4f9e);
+  color:#fdfeff;
+}
+.theme-v5 .oswall__menubar{
+  background:repeating-linear-gradient(0deg, rgba(255,255,255,.25) 0 1px, transparent 1px 3px), rgba(60,105,170,.85);
+}
+
+/* --- v6 · Yosemite (2014): flat oscuro + translucidez vibrancy --- */
+.theme-v6{
+  --v-radius:10px;
+  --v-bg:
+    linear-gradient(rgba(16,18,23,.9), rgba(24,27,34,.88)),
+    linear-gradient(150deg,#2c4478,#5b78ab 55%,#93a9c9);
+  --v-text:#eef1f6;
+  --v-dim:#a9aeb9;
+  --v-faint:#767b87;
+  --v-line:rgba(255,255,255,.10);
+  --v-accent:#0a84ff;
+  --v-glow2:#4cd0c0;
+  --v-chrome:rgba(30,33,40,.72);
+  --v-title:#c3c7d1;
+  --v-font-display:-apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --v-font-body:-apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --v-glint:rgba(255,255,255,.35);
+  --v-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+.theme-v6 .oswin__chrome{ backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+.theme-v6 .oswin__lights i{ width:12px; height:12px; }
+.theme-v6 .oswall{
+  background:linear-gradient(165deg,#16222e 0%,#274357 45%,#4a7396 80%,#89aebf 100%);
+  color:#eef3f8;
+}
+
+/* --- v7 · Big Sur (2020): vidrio flotante, gradientes cálidos --- */
+.theme-v7{
+  --v-radius:22px;
+  --v-bg:
+    linear-gradient(rgba(26,26,31,.72), rgba(26,26,31,.72)),
+    linear-gradient(135deg,#ff7a59,#ff4d8d 40%,#7a5cff 75%,#3aa6ff);
+  --v-text:#f7f5f4;
+  --v-dim:#c9c4c6;
+  --v-faint:#948e93;
+  --v-line:rgba(255,255,255,.16);
+  --v-accent:#ff8fa3;
+  --v-glow2:#ff5f8f;
+  --v-chrome:rgba(255,255,255,.08);
+  --v-title:#e8e4e6;
+  --v-font-display:-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  --v-font-body:-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  --v-glint:rgba(255,255,255,.16);
+  --v-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06) inset;
+}
+.theme-v7 .oswin__chrome{ backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+.theme-v7 .version__name{
+  background:linear-gradient(90deg,#ffb88c,#ff8fa3 50%,#9d8cff);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.theme-v7 .oswall{
+  background:
+    radial-gradient(80% 80% at 20% 15%, rgba(255,138,101,.75), transparent 55%),
+    radial-gradient(90% 90% at 85% 30%, rgba(158,120,255,.7), transparent 60%),
+    radial-gradient(100% 100% at 55% 100%, rgba(58,166,255,.65), transparent 60%),
+    #191922;
+  color:#f7f5f4;
+}
+
+/* --- v8 · Tahoe (2025): Liquid Glass — transparencia y reflejo vivo --- */
+.theme-v8{
+  --v-radius:26px;
+  --v-bg:
+    linear-gradient(rgba(255,255,255,.08), rgba(255,255,255,.05)),
+    linear-gradient(140deg,#20304a,#3b2f63 50%,#143a44);
+  --v-text:#f4f6fb;
+  --v-dim:#bcc4d6;
+  --v-faint:#7f8aa3;
+  --v-line:rgba(255,255,255,.22);
+  --v-accent:#7dd8ff;
+  --v-glow2:#ba84ff;
+  --v-chrome:rgba(255,255,255,.09);
+  --v-title:#e6ecf7;
+  --v-font-display:-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  --v-font-body:-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  --v-glint:rgba(255,255,255,.22);
+  --v-shadow:0 34px 90px rgba(0,0,0,.62);
+  --v-menutext:rgba(255,255,255,.9);
+}
+.theme-v8 .oswin{
+  backdrop-filter:blur(26px) saturate(1.7);
+  -webkit-backdrop-filter:blur(26px) saturate(1.7);
+}
+/* borde iridiscente líquido */
+.theme-v8 .oswin::before{
+  content:"";
+  position:absolute; inset:-1px;
+  border-radius:inherit;
+  padding:1px;
+  background:linear-gradient(120deg, rgba(125,216,255,.7), rgba(180,140,255,.55) 40%, rgba(125,255,214,.5) 70%, rgba(255,170,220,.55));
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+  z-index:1;
+}
+.theme-v8 .oswall{
+  background:
+    radial-gradient(70% 90% at 15% 10%, rgba(125,216,255,.5), transparent 55%),
+    radial-gradient(80% 80% at 90% 25%, rgba(186,132,255,.5), transparent 58%),
+    radial-gradient(90% 90% at 50% 105%, rgba(125,255,214,.42), transparent 60%),
+    linear-gradient(160deg,#101b2c,#182a3d);
+  color:#f4f6fb;
+}
+.theme-v8 .oswall__year{
+  background:linear-gradient(110deg,#7dd8ff,#ba84ff 55%,#7dd6ff);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-stroke:0;
+  opacity:.5;
 }
 
 /* ---------- COMPARISON ---------- */
@@ -447,13 +1505,26 @@ h1,h2,h3,h4,p{ margin:0; }
   .nav__links{ display:none; }
   .nav__toggle{ display:block; }
   .grid-cards{ grid-template-columns:1fr; }
-  .trail__detail{ grid-template-columns:1fr; }
+  .trail__detail-body{ grid-template-columns:1fr; }
+  .mac-monitor--timeline{ max-width:360px; }
+  .trail__detail-shot{ max-width:440px; margin-inline:auto; width:100%; }
+  .trail__logo{ height:84px; bottom:calc(100% + 2.2rem); }
+  .trail__scroll{ padding-top:4rem; }
   .version{ grid-template-columns:1fr; }
-  .version:nth-of-type(even) .version__media{ order:0; }
+  .version:nth-of-type(even) .mac-monitor{ order:0; }
   .compare-picker{ grid-template-columns:1fr; }
   .compare-picker__vs{ display:none; }
   .impact-grid{ grid-template-columns:1fr; }
   .stat-row{ grid-template-columns:repeat(2,1fr); }
   .compare-table{ font-size:.85rem; }
   .compare-table tbody th{ width:auto; }
+  .mac-monitor{ max-width:340px; }
+  .mac-monitor__neck{ --m-neck-h:14px; }
+  .mac-monitor__base{ --m-base-w:80px; }
+}
+@media (max-width: 480px){
+  .mac-monitor{ max-width:260px; }
+  .mac-monitor__body{ --m-bezel:5px; }
+  .mac-monitor__neck{ --m-neck-h:10px; --m-neck-w:30px; }
+  .mac-monitor__base{ --m-base-w:65px; --m-base-h:6px; }
 }
