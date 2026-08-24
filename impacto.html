@@ -12,9 +12,9 @@
   <div class="contenedor nav__bar">
     <a href="index.html" class="nav__brand">
       <span class="nav__brand-mark" aria-hidden="true"></span>
-      macOS 
+      macOS
     </a>
-    <nav class="menu__enlaces" aria-label="Navegación principal">
+    <nav class="nav__links" aria-label="Navegación principal">
       <a href="index.html">Resumen</a>
       <a href="linea-de-tiempo.html">Línea de tiempo</a>
       <a href="versiones.html">Versiones</a>
@@ -38,79 +38,54 @@
 </div>
 
 <main>
-  <section class="portada contenedor" style="padding-bottom:1rem;">
-    <p class="etiqueta portada__etiqueta">Análisis</p>
-    <h1>Cómo macOS <span>cambió la forma de programar.</span></h1>
-    <p class="portada__resumen">[Introducción: una o dos frases que planteen la tesis central de este análisis de impacto.]</p>
+  <section class="hero contenedor" style="padding-bottom:1rem;">
+    <p class="eyebrow hero__kicker">Actividad 3</p>
+    <h1>Dos versiones, <span>un análisis a fondo.</span></h1>
+    <p class="lede">El grupo eligió dos versiones clave para entender mejor qué problema resolvieron, qué oportunidades abrieron para los desarrolladores y qué limitaciones quedaron: Mac OS X 10.4 Tiger y macOS 11 Big Sur.</p>
   </section>
 
-  <section class="seccion seccion--angosta">
+  <section class="section section--tight">
     <div class="contenedor">
-      <div class="fila-datos">
-        <div class="dato">
-          <div class="dato__numero">[N]</div>
-          <div class="dato__etiqueta">[Métrica 1 — por ejemplo, APIs introducidas]</div>
-        </div>
-        <div class="dato">
-          <div class="dato__numero">[N]</div>
-          <div class="dato__etiqueta">[Métrica 2]</div>
-        </div>
-        <div class="dato">
-          <div class="dato__numero">[N]</div>
-          <div class="dato__etiqueta">[Métrica 3]</div>
-        </div>
-        <div class="dato">
-          <div class="dato__numero">[N]</div>
-          <div class="dato__etiqueta">[Métrica 4]</div>
-        </div>
-      </div>
-    </div>
-  </section>
+      <div class="impact-grid">
 
-  <section class="seccion">
-    <div class="contenedor">
-      <div class="seccion__encabezado">
-        <p class="etiqueta">Ejes de análisis</p>
-        <h2>Cuatro frentes donde se sintió el cambio.</h2>
-        <p>Cada tarjeta corresponde a un área del desarrollo de software afectada por la evolución de macOS.</p>
-      </div>
+        <div class="oswin theme-v5">
+          <div class="oswin__chrome">
+            <span class="oswin__lights"><i></i><i></i><i></i></span>
+            <span class="oswin__title">Mac OS X 10.4 Tiger</span>
+            <span class="oswin__chrome-end" aria-hidden="true"></span>
+          </div>
+          <div class="version__body">
+            <h2 class="version__name">Mac OS X 10.4 Tiger</h2>
+            <div class="version__code">Tiger — macOS 10.4 · 2005</div>
+            <ul class="version__features">
+              <li>Problema resuelto: Las búsquedas de archivos eran lentas por falta de metadatos e índices. Tiger introdujo Spotlight, con indexación en tiempo real desde la lupa superior, y Sync Services, que sincronizaba datos entre apps evitando duplicados.</li>
+              <li>Oportunidades para desarrolladores: Se introdujo soporte para apps de 64 bits, manteniendo compatibilidad con 32 bits, permitiendo usar más memoria sin abandonar las apps antiguas. Se lanzó Xcode 2.0, con un compilador más moderno y nuevas herramientas de depuración y análisis de código.</li>
+              <li>Herramientas fortalecidas: Xcode mejoró con desarrollo de 64 bits, modelado visual y universal binaries para la transición a Intel. La sincronización con .Mac mejoró su rendimiento y se activaba desde Configuración en vez de iSync.</li>
+              <li>Aplicaciones beneficiadas: Las apps gráficas y de video se beneficiaron con Core Image y Core Video, y las de uso intensivo de memoria, como edición profesional, gracias a la arquitectura de 64 bits.</li>
+              <li>Limitaciones: Requería más recursos, afectando el rendimiento en Macs antiguos. Spotlight, en sus primeras versiones, indexaba lento y a veces mostraba resultados desactualizados.</li>
+            </ul>
+          </div>
+        </div>
 
-      <div class="cuadricula-impacto">
-        <article class="tarjeta-impacto">
-          <div class="tarjeta-impacto__numero">01</div>
-          <h3>[Herramientas de desarrollo]</h3>
-          <p>[Cómo cambiaron Xcode, las líneas de comandos u otras herramientas a lo largo de las versiones analizadas.]</p>
-        </article>
-        <article class="tarjeta-impacto">
-          <div class="tarjeta-impacto__numero">02</div>
-          <h3>[Lenguajes y frameworks]</h3>
-          <p>[Cómo influyó cada versión en la adopción de lenguajes o frameworks — por ejemplo, transiciones de paradigma.]</p>
-        </article>
-        <article class="tarjeta-impacto">
-          <div class="tarjeta-impacto__numero">03</div>
-          <h3>[Arquitectura y rendimiento]</h3>
-          <p>[Cambios de arquitectura de hardware o del sistema que obligaron a adaptar el software desarrollado.]</p>
-        </article>
-        <article class="tarjeta-impacto">
-          <div class="tarjeta-impacto__numero">04</div>
-          <h3>[Seguridad y distribución]</h3>
-          <p>[Cambios en permisos, firma de código o distribución de aplicaciones que afectaron a los desarrolladores.]</p>
-        </article>
-      </div>
+        <div class="oswin theme-v7">
+          <div class="oswin__chrome">
+            <span class="oswin__lights"><i></i><i></i><i></i></span>
+            <span class="oswin__title">macOS 11 Big Sur</span>
+            <span class="oswin__chrome-end" aria-hidden="true"></span>
+          </div>
+          <div class="version__body">
+            <h2 class="version__name">macOS 11 Big Sur</h2>
+            <div class="version__code">Big Sur — macOS 11 · 2020</div>
+            <ul class="version__features">
+              <li>Problema resuelto: La compatibilidad con Apple Silicon mejoró el rendimiento y permitió ejecutar apps de iOS/iPadOS nativamente, además de una interfaz más intuitiva.</li>
+              <li>Oportunidades para desarrolladores: Rosetta 2 permitía ejecutar apps de Intel no actualizadas, dando tiempo para la transición. SwiftUI se actualizó para compartir código entre iOS, macOS, iPadOS y demás plataformas.</li>
+              <li>Herramientas fortalecidas: Safari tuvo la mayor actualización, 50% más rápido que Chrome, con nuevo informe de privacidad y soporte de extensiones de otros navegadores. Mapas se rediseñó con guías propias y mapas de interiores.</li>
+              <li>Aplicaciones beneficiadas: Las apps de IA y Machine Learning se beneficiaron del Neural Engine, con Catalyst llegaron al Mac apps que solo existían en iPad, y las apps multiplataforma con SwiftUI ganaron una sola base de código.</li>
+              <li>Limitaciones: La versión inicial tuvo 60 vulnerabilidades, corregidas en la 11.0.1. Rosetta no traducía todas las apps de Intel, y hubo problemas de inestabilidad resueltos con actualizaciones.</li>
+            </ul>
+          </div>
+        </div>
 
-      <blockquote class="cita">
-        “[Cita o conclusión destacada que resuma el hallazgo más importante del análisis de impacto.]”
-        <cite>[Fuente de la cita]</cite>
-      </blockquote>
-    </div>
-  </section>
-
-  <section class="seccion">
-    <div class="contenedor">
-      <div class="seccion__encabezado">
-        <p class="etiqueta">Conclusiones</p>
-        <h2>Lo que deja esta evolución.</h2>
-        <p>[Cierre del análisis: qué aprendizaje general se puede sacar de cómo macOS ha influido en el desarrollo de software a lo largo del tiempo.]</p>
       </div>
     </div>
   </section>
@@ -118,15 +93,12 @@
 
 <footer class="footer contenedor">
   <div class="footer__row">
-    <span>[Nombre del curso / asignatura]</span>
-    <span>[Institución]</span>
-    <span>[Fecha de entrega]</span>
-  </div>
-  <div class="pie__nota">
-    Diseño de plantilla — todo el contenido entre corchetes es un marcador de posición para completar con información propia.
+    <span>Sistemas Operativos</span>
+    <span>Universidad Tecnológica de Panamá</span>
+    <span>25 de agosto de 2026</span>
   </div>
 </footer>
 
-<script src="js/taquito.js"></script>
+<script src="js/app.js?v=16"></script>
 </body>
 </html>
