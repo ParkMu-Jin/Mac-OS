@@ -230,13 +230,16 @@ h1,h2,h3,h4,p{ margin:0; }
 /* video embebido dentro del mock, debajo de la barra de puntos */
 .mock__video-wrap{
   position:absolute;
-  inset:34px 0 0 0;
+  top:34px; right:0; bottom:0; left:0;
+  overflow:hidden;
 }
 .mock__video{
-  display:block;
+  position:absolute;
+  top:0; right:0; bottom:0; left:0;
   width:100%;
   height:100%;
   border:0;
+  display:block;
 }
 
 /* ---------- SECTION SCAFFOLDING ---------- */
