@@ -1,10 +1,3 @@
-/* ============================================================
-   DATOS DE VERSIONES — PLACEHOLDER
-   Reemplaza cada campo con la información real de tu investigación.
-   Todas las páginas (línea de tiempo, versiones, comparación)
-   leen de este mismo arreglo, así que solo necesitas editar aquí.
-   ============================================================ */
-
 const VERSIONS = [
   {
     id: "v1",
@@ -151,11 +144,7 @@ const VERSIONS = [
     },
   },
 ];
-/* ============================================================
-   ILUSTRACIONES POR ERA — escenas SVG que evocan cada sistema
-   Se muestran dentro del escritorio de época (.oswall).
-   Los ids de <defs> llevan prefijo único para evitar colisiones.
-   ============================================================ */
+/*  ILUSTRACIONES POR ERA  */
 
 const ART = {
   v1: `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
@@ -263,29 +252,23 @@ const ART = {
   v8: `<img src="IMG/macos-tahoe.png" alt="Escritorio de macOS 26 Tahoe (2025)" style="width:100%;height:100%;object-fit:cover;" aria-hidden="true">`,
 };
 
-/* ============================================================
-   INTERACCIÓN COMPARTIDA
-   Lee VERSIONS y construye:
-   - el sendero interactivo (timeline.html)
-   - las secciones por versión (versiones.html)
-   - el comparador (comparacion.html)
-   - el reveal en scroll (impacto.html)
-   ============================================================ */
+/*  INTERACCIÓN COMPARTIDA */
 
 document.addEventListener("DOMContentLoaded", () => {
   initMobileNav();
   initTrail();
   initVersionSections();
+  initVersionReveal();
+  initWindowTilt();
   initComparator();
   initScrollReveal();
 });
 
-/* respeta la preferencia del sistema de reducir movimiento */
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-/* ---------- NAV MÓVIL ---------- */
+/* NAV MÓVIL */
 function initMobileNav() {
   const toggle = document.querySelector(".nav__toggle");
   const links = document.querySelector(".nav__links");
@@ -297,11 +280,8 @@ function initMobileNav() {
   });
 }
 
-/* ---------- SENDERO / LÍNEA DE TIEMPO ---------- */
+/*  LÍNEA DE TIEMPO */
 
-/* resuelve el logo de una era a partir de su año:
-   busca coincidencia exacta (1984.png) o dentro de un rango
-   en el nombre del archivo (1997-1999.png, 2020-2025.jpg) */
 function logoForYear(year) {
   const files = ["1984.png", "1991.png", "1997-1999.png", "2001.png", "2014.png", "2020-2025.jpg"];
   const y = parseInt(year, 10);
@@ -318,8 +298,6 @@ function initTrail() {
   const detail = document.querySelector(".trail__detail");
   if (!track || typeof VERSIONS === "undefined") return;
 
-  // ancho virtual del sendero: el SVG escala al 100% del contenedor,
-  // los puntos se posicionan en % para que todo quepa sin scroll
   const VW = 1360;
   const points = VERSIONS.map((v, i) => {
     const x = 90 + i * ((VW - 180) / (VERSIONS.length - 1 || 1));
@@ -327,7 +305,6 @@ function initTrail() {
     return { x, y: wobble, v };
   });
 
-  // dibuja el sendero como una curva suave (topografía) entre puntos
   let pathD = "";
   if (pathEl) {
     pathD = `M ${points[0].x} ${points[0].y}`;
@@ -439,14 +416,14 @@ function initTrail() {
     );
     if (!detail) return;
 
-    // viste TODA la sección (hero, sendero, panel) con el tema de la época
+    // viste TODA la sección 
     const main = detail.closest("main");
     if (main) {
       VERSIONS.forEach((x) => main.classList.remove("theme-" + x.id));
       main.classList.add("theme-" + v.id);
     }
 
-    // el panel también rota su tema (viene con theme-v1 hardcodeado en el HTML)
+    // el panel también rota su tema 
     VERSIONS.forEach((x) => detail.classList.remove("theme-" + x.id));
     detail.classList.add("theme-" + v.id);
 
@@ -457,7 +434,7 @@ function initTrail() {
       monitor.classList.add("theme-" + v.id);
     }
 
-    // controles de la ventana según la era (caja clásica vs semáforos)
+    // controles de la ventana según la era 
     const ctl = detail.querySelector(".oswin__ctl");
     if (ctl) {
       ctl.innerHTML = i >= 4
@@ -500,7 +477,6 @@ function initTrail() {
     detail.setAttribute("aria-label",
       `Escritorio de la era ${v.name}`);
 
-    // micro-transición al cambiar de era
     detail.classList.remove("is-swapping");
     void detail.offsetWidth;
     detail.classList.add("is-swapping");
@@ -512,7 +488,7 @@ function initTrail() {
   }
 }
 
-/* ---------- SECCIONES POR VERSIÓN (ventanas de época) ---------- */
+/* SECCIONES POR VERSIÓN  */
 function initVersionSections() {
   const host = document.querySelector("[data-version-sections]");
   if (!host || typeof VERSIONS === "undefined") return;
@@ -567,12 +543,8 @@ function initVersionSections() {
       </div>
     </article>`;
   }).join("");
-
-  initVersionReveal();
-  initWindowTilt();
 }
 
-/* reveal escalonado de cada ventana al hacer scroll */
 function initVersionReveal() {
   const items = document.querySelectorAll(".version");
   if (!items.length) return;
@@ -595,7 +567,6 @@ function initVersionReveal() {
   items.forEach((el) => io.observe(el));
 }
 
-/* tilt 3D + reflejo especular que sigue el cursor */
 function initWindowTilt() {
   if (window.matchMedia("(hover: none)").matches) return;
   document.querySelectorAll(".oswin[data-tilt]").forEach((win) => {
@@ -661,7 +632,7 @@ function initComparator() {
   render();
 }
 
-/* ---------- REVEAL EN SCROLL (página de impacto) ---------- */
+/* REVEAL EN SCROLL  */
 function initScrollReveal() {
   const items = document.querySelectorAll(".impact-card");
   if (!items.length) return;
