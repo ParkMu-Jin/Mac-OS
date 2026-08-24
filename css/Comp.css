@@ -2,6 +2,70 @@
   position:relative;
 }
 
+/* BLOQUE: PORTADA DE LA PÁGINA DE COMPARACIÓN
+   Replica el look del hero de las demás páginas (kicker + título con
+   degradado + resumen) usando las variables de diseño de style.css. */
+.portada{
+  position:relative;
+  padding:5.5rem 0 1rem;
+  text-align:center;
+  overflow:hidden;
+}
+.portada::before{
+  content:"";
+  position:absolute; inset:-20% -10% auto -10%;
+  height:600px;
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 0%, var(--accent-soft), transparent 70%),
+    radial-gradient(ellipse 55% 45% at 75% 10%, var(--accent-2-soft), transparent 70%);
+  pointer-events:none;
+}
+.etiqueta{
+  position:relative;
+  font-family:var(--font-mono);
+  font-size:.72rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.55em;
+  margin-bottom:1.1rem;
+}
+.etiqueta::before{
+  content:"";
+  width:14px; height:1px;
+  background:var(--accent);
+  display:inline-block;
+}
+.portada h1{
+  position:relative;
+  font-size:clamp(1.9rem,4.2vw,2.9rem);
+  font-weight:800;
+  letter-spacing:-.02em;
+  line-height:1.2;
+  max-width:30ch;
+  margin-inline:auto;
+}
+.portada h1 span{
+  background:linear-gradient(100deg, var(--accent), var(--accent-2));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.portada__resumen{
+  position:relative;
+  margin:1.2rem auto 0;
+  max-width:62ch;
+  color:var(--text-dim);
+  font-size:1.02rem;
+  line-height:1.65;
+}
+@media (max-width:600px){
+  .portada{ padding-top:3.5rem; }
+}
+
 /* BLOQUE: ENCABEZADO CON LOS DOS MODELOS Y EL VS */
 .comp__enfrentamiento{
   display:flex;
