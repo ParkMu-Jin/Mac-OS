@@ -48,9 +48,21 @@
     <div class="contenedor trail">
       <div class="trail__scroll">
         <div class="trail__track">
-          <svg class="trail__path" xmlns="http://www.w3.org/2000/svg"></svg>
+          <svg class="trail__path" xmlns="http://www.w3.org/2000/svg">
+            <path class="trail__path-bg"></path>
+            <path class="trail__path-progress"></path>
+          </svg>
           <!-- los puntos del sendero se generan dinámicamente desde js/app.js -->
         </div>
+      </div>
+
+      <div class="trail__nav">
+        <button class="trail__nav-btn trail__nav-btn--prev" aria-label="Versión anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="trail__nav-btn trail__nav-btn--next" aria-label="Siguiente versión">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+        </button>
       </div>
 
       <div class="trail__detail oswin theme-v1">

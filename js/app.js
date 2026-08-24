@@ -252,133 +252,15 @@ const ART = {
 
   v3: `<img src="IMG/macos8-screenshot.png" alt="Escritorio de Mac OS 8 (1997)" style="width:100%;height:100%;object-fit:contain;" aria-hidden="true">`,
 
-  v4: `<img src="IMG/macos9-screenshot.jpg" alt="Escritorio de Mac OS 9 (1999)" style="width:100%;height:100%;object-fit:contain;" aria-hidden="true">`,
+  v4: `<img src="IMG/macos9-screenshot.jpg" alt="Escritorio de Mac OS 9 (1999)" style="width:100%;height:100%;object-fit:cover;" aria-hidden="true">`,
 
-  v5: `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-    <defs>
-      <pattern id="art5-pins" width="3" height="3" patternUnits="userSpaceOnUse">
-        <rect width="3" height="1" fill="rgba(255,255,255,.35)"/>
-      </pattern>
-      <linearGradient id="art5-gel" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#9fd0ff"/><stop offset=".45" stop-color="#2a72d4"/>
-        <stop offset=".55" stop-color="#1a56ad"/><stop offset="1" stop-color="#4a92e6"/>
-      </linearGradient>
-    </defs>
-    <rect x="70" y="48" width="260" height="150" rx="8" fill="#fdfeff" stroke="#aec3de" stroke-width="2"/>
-    <path d="M70 56a8 8 0 018-8h244a8 8 0 018 8v22H70z" fill="url(#art5-gel)"/>
-    <rect x="70" y="48" width="260" height="30" rx="8" fill="url(#art5-pins)"/>
-    <g>
-      <circle cx="88" cy="63" r="5.5" fill="#ff5f57" stroke="#c33"/><circle cx="106" cy="63" r="5.5" fill="#febc2e" stroke="#b83"/><circle cx="124" cy="63" r="5.5" fill="#28c840" stroke="#161"/>
-    </g>
-    <text x="200" y="67" font-family="'PT Sans',sans-serif" font-size="11" font-weight="bold" fill="#f4f8ff" text-anchor="middle">Mac OS X</text>
-    <rect x="92" y="92" width="216" height="6" rx="3" fill="#dbe7f6"/>
-    <rect x="92" y="106" width="170" height="6" rx="3" fill="#dbe7f6"/>
-    <rect x="92" y="120" width="192" height="6" rx="3" fill="#dbe7f6"/>
-    <!-- Dock con botones "gel" -->
-    <rect x="86" y="222" width="228" height="44" rx="14" fill="rgba(255,255,255,.35)" stroke="rgba(255,255,255,.7)" stroke-width="1.5"/>
-    <g>
-      <rect x="100" y="230" width="28" height="28" rx="7" fill="url(#art5-gel)"/>
-      <rect x="136" y="230" width="28" height="28" rx="7" fill="url(#art5-gel)" opacity=".85"/>
-      <rect x="172" y="230" width="28" height="28" rx="7" fill="#7ecbff"/>
-      <rect x="208" y="230" width="28" height="28" rx="7" fill="#8fe08f"/>
-      <rect x="244" y="230" width="28" height="28" rx="7" fill="#ffd57e"/>
-    </g>
-  </svg>`,
+  v5: `<img src="IMG/macosx-cheetah.jpg" alt="Escritorio de Mac OS X 10.0 Cheetah (2001)" style="width:100%;height:100%;object-fit:contain;" aria-hidden="true">`,
 
-  v6: `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-    <rect x="70" y="50" width="260" height="160" rx="8" fill="rgba(250,250,252,.92)" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-    <g>
-      <circle cx="92" cy="68" r="6" fill="#ff5f57"/><circle cx="110" cy="68" r="6" fill="#febc2e"/><circle cx="128" cy="68" r="6" fill="#28c840"/>
-    </g>
-    <rect x="92" y="94" width="180" height="7" rx="3.5" fill="#d8dade"/>
-    <rect x="92" y="108" width="216" height="7" rx="3.5" fill="#e3e5ea"/>
-    <rect x="92" y="122" width="150" height="7" rx="3.5" fill="#e3e5ea"/>
-    <!-- dock plano estilo iOS -->
-    <rect x="82" y="226" width="236" height="42" rx="12" fill="rgba(255,255,255,.25)" stroke="rgba(255,255,255,.45)" stroke-width="1.5"/>
-    <g>
-      <rect x="96" y="232" width="30" height="30" rx="8" fill="#0a84ff"/>
-      <rect x="136" y="232" width="30" height="30" rx="8" fill="#34c759"/>
-      <rect x="176" y="232" width="30" height="30" rx="8" fill="#ff9f0a"/>
-      <rect x="216" y="232" width="30" height="30" rx="8" fill="#ff375f"/>
-      <rect x="256" y="232" width="30" height="30" rx="8" fill="#af52de"/>
-      <circle cx="111" cy="247" r="8" fill="#fff" opacity=".85"/>
-      <path d="M143 256l8-9 8 9z" fill="#fff" opacity=".85"/>
-      <path d="M183 240l16 7-16 7z" fill="#fff" opacity=".85"/>
-      <rect x="222" y="240" width="18" height="3" fill="#fff" opacity=".85"/>
-      <rect x="222" y="246" width="18" height="3" fill="#fff" opacity=".85"/>
-      <rect x="222" y="252" width="12" height="3" fill="#fff" opacity=".85"/>
-      <circle cx="271" cy="245" r="5" fill="#fff" opacity=".85"/>
-      <path d="M264 258c2-6 12-6 14 0z" fill="#fff" opacity=".85"/>
-    </g>
-  </svg>`,
+  v6: `<img src="IMG/osx-yosemite.jpg" alt="Escritorio de OS X Yosemite (2014)" style="width:100%;height:100%;object-fit:contain;" aria-hidden="true">`,
 
-  v7: `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-    <defs>
-      <linearGradient id="art7-ic1" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#ff7a59"/><stop offset="1" stop-color="#ff4d8d"/>
-      </linearGradient>
-      <linearGradient id="art7-ic2" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#7a5cff"/><stop offset="1" stop-color="#3aa6ff"/>
-      </linearGradient>
-    </defs>
-    <!-- Centro de Control -->
-    <rect x="96" y="52" width="150" height="128" rx="18" fill="rgba(255,255,255,.14)" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
-    <rect x="110" y="66" width="56" height="34" rx="9" fill="rgba(255,255,255,.16)"/>
-    <rect x="174" y="66" width="56" height="34" rx="9" fill="rgba(255,255,255,.16)"/>
-    <circle cx="126" cy="83" r="8" fill="url(#art7-ic1)"/>
-    <circle cx="190" cy="83" r="8" fill="url(#art7-ic2)"/>
-    <rect x="110" y="114" width="120" height="8" rx="4" fill="rgba(255,255,255,.2)"/>
-    <rect x="110" y="114" width="76" height="8" rx="4" fill="#ff8fa3"/>
-    <circle cx="186" cy="118" r="7" fill="#fff"/>
-    <rect x="110" y="134" width="120" height="8" rx="4" fill="rgba(255,255,255,.2)"/>
-    <rect x="110" y="134" width="100" height="8" rx="4" fill="#9d8cff"/>
-    <circle cx="210" cy="138" r="7" fill="#fff"/>
-    <rect x="110" y="156" width="52" height="12" rx="6" fill="rgba(255,255,255,.2)"/>
-    <rect x="166" y="156" width="52" height="12" rx="6" fill="rgba(255,255,255,.2)"/>
-    <!-- Dock vidrio -->
-    <rect x="76" y="224" width="248" height="46" rx="16" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
-    <g>
-      <rect x="92" y="232" width="30" height="30" rx="9" fill="url(#art7-ic1)"/>
-      <rect x="132" y="232" width="30" height="30" rx="9" fill="url(#art7-ic2)"/>
-      <rect x="172" y="232" width="30" height="30" rx="9" fill="#3aa6ff"/>
-      <rect x="212" y="232" width="30" height="30" rx="9" fill="#ffb88c"/>
-      <rect x="252" y="232" width="30" height="30" rx="9" fill="#ff5f8f"/>
-    </g>
-  </svg>`,
+  v7: `<img src="IMG/macos-big-sur.jpg" alt="Escritorio de macOS Big Sur (2020)" style="width:100%;height:100%;object-fit:cover;" aria-hidden="true">`,
 
-  v8: `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-    <defs>
-      <linearGradient id="art8-edge" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#7dd8ff"/><stop offset=".4" stop-color="#ba84ff"/>
-        <stop offset=".7" stop-color="#7dd6ff"/><stop offset="1" stop-color="#ffaadc"/>
-      </linearGradient>
-    </defs>
-    <!-- ventana Liquid Glass con borde iridiscente -->
-    <rect x="82" y="52" width="236" height="140" rx="22" fill="rgba(255,255,255,.10)" stroke="url(#art8-edge)" stroke-width="2"/>
-    <circle cx="120" cy="72" r="5.5" fill="#ff5f57" opacity=".9"/>
-    <circle cx="138" cy="72" r="5.5" fill="#febc2e" opacity=".9"/>
-    <circle cx="156" cy="72" r="5.5" fill="#28c840" opacity=".9"/>
-    <rect x="104" y="94" width="150" height="7" rx="3.5" fill="rgba(255,255,255,.35)"/>
-    <rect x="104" y="108" width="192" height="7" rx="3.5" fill="rgba(255,255,255,.22)"/>
-    <rect x="104" y="122" width="120" height="7" rx="3.5" fill="rgba(255,255,255,.22)"/>
-    <!-- Spotlight -->
-    <rect x="104" y="146" width="192" height="26" rx="13" fill="rgba(255,255,255,.14)" stroke="rgba(125,216,255,.6)" stroke-width="1.5"/>
-    <circle cx="120" cy="159" r="6" fill="none" stroke="#7dd8ff" stroke-width="2"/>
-    <path d="M125 164l5 5" stroke="#7dd8ff" stroke-width="2" stroke-linecap="round"/>
-    <rect x="136" y="155" width="90" height="7" rx="3.5" fill="rgba(255,255,255,.3)"/>
-    <!-- burbujas glass -->
-    <circle cx="330" cy="120" r="26" fill="rgba(186,132,255,.25)" stroke="rgba(255,255,255,.4)"/>
-    <circle cx="310" cy="200" r="16" fill="rgba(125,216,255,.25)" stroke="rgba(255,255,255,.4)"/>
-    <!-- Dock -->
-    <rect x="76" y="222" width="248" height="48" rx="18" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
-    <g>
-      <rect x="92" y="231" width="30" height="30" rx="10" fill="rgba(125,216,255,.5)" stroke="rgba(255,255,255,.5)"/>
-      <rect x="132" y="231" width="30" height="30" rx="10" fill="rgba(186,132,255,.5)" stroke="rgba(255,255,255,.5)"/>
-      <rect x="172" y="231" width="30" height="30" rx="10" fill="rgba(125,255,214,.45)" stroke="rgba(255,255,255,.5)"/>
-      <rect x="212" y="231" width="30" height="30" rx="10" fill="rgba(255,170,220,.45)" stroke="rgba(255,255,255,.5)"/>
-      <rect x="252" y="231" width="30" height="30" rx="10" fill="rgba(255,255,255,.25)" stroke="rgba(255,255,255,.5)"/>
-    </g>
-  </svg>`,
+  v8: `<img src="IMG/macos-tahoe.png" alt="Escritorio de macOS 26 Tahoe (2025)" style="width:100%;height:100%;object-fit:cover;" aria-hidden="true">`,
 };
 
 /* ============================================================
@@ -446,26 +328,48 @@ function initTrail() {
   });
 
   // dibuja el sendero como una curva suave (topografía) entre puntos
+  let pathD = "";
   if (pathEl) {
-    let d = `M ${points[0].x} ${points[0].y}`;
+    pathD = `M ${points[0].x} ${points[0].y}`;
     for (let i = 1; i < points.length; i++) {
       const prev = points[i - 1];
       const curr = points[i];
       const midX = (prev.x + curr.x) / 2;
-      d += ` C ${midX} ${prev.y}, ${midX} ${curr.y}, ${curr.x} ${curr.y}`;
+      pathD += ` C ${midX} ${prev.y}, ${midX} ${curr.y}, ${curr.x} ${curr.y}`;
     }
-    pathEl.innerHTML = `<path d="${d}"></path>`;
+    pathEl.innerHTML = `
+      <defs>
+        <linearGradient id="trail-gradient" gradientUnits="userSpaceOnUse" x1="${points[0].x}" y1="0" x2="${points[points.length - 1].x}" y2="0">
+          <stop offset="0%" stop-color="#cda15b"/>
+          <stop offset="50%" stop-color="#8ba4d4"/>
+          <stop offset="100%" stop-color="#5b8cff"/>
+        </linearGradient>
+        <clipPath id="trail-clip">
+          <rect id="trail-clip-rect" x="0" y="0" width="0" height="180"/>
+        </clipPath>
+      </defs>
+      <path class="trail__path-bg" d="${pathD}"></path>
+      <path class="trail__path-progress" d="${pathD}" clip-path="url(#trail-clip)"></path>`;
     pathEl.setAttribute("viewBox", `0 0 ${VW} 180`);
     pathEl.setAttribute("preserveAspectRatio", "none");
   }
 
+  const clipRect = document.getElementById("trail-clip-rect");
+
+  function updateProgress(index) {
+    if (!clipRect) return;
+    const targetX = points[index] ? points[index].x : 0;
+    clipRect.setAttribute("width", targetX);
+  }
+
   function scrollToDetail() {
     if (!detail || prefersReducedMotion()) return;
-    // lleva la vista al inicio del sendero para que la línea de tiempo
-    // y el panel informativo queden visibles juntos en pantalla
     const host = detail.closest(".trail") || detail;
     host.scrollIntoView({ behavior: "smooth", block: "start" });
   }
+
+  // índice actual para navegación
+  let currentIndex = 0;
 
   points.forEach((p, i) => {
     const btn = document.createElement("button");
@@ -483,11 +387,51 @@ function initTrail() {
       <span class="trail__year">${p.v.year}</span>
     `;
     btn.addEventListener("click", () => {
+      currentIndex = i;
       selectVersion(p.v, btn, i);
+      updateProgress(i);
+      updateNavButtons();
       scrollToDetail();
     });
     track.appendChild(btn);
   });
+
+  // botones de navegación
+  const prevBtn = document.querySelector(".trail__nav-btn--prev");
+  const nextBtn = document.querySelector(".trail__nav-btn--next");
+
+  function updateNavButtons() {
+    if (prevBtn) prevBtn.disabled = currentIndex <= 0;
+    if (nextBtn) nextBtn.disabled = currentIndex >= points.length - 1;
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        const btn = track.querySelectorAll(".trail__point")[currentIndex];
+        selectVersion(points[currentIndex].v, btn, currentIndex);
+        updateProgress(currentIndex);
+        updateNavButtons();
+        scrollToDetail();
+      }
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      if (currentIndex < points.length - 1) {
+        currentIndex++;
+        const btn = track.querySelectorAll(".trail__point")[currentIndex];
+        selectVersion(points[currentIndex].v, btn, currentIndex);
+        updateProgress(currentIndex);
+        updateNavButtons();
+        scrollToDetail();
+      }
+    });
+  }
+
+  updateNavButtons();
 
   function selectVersion(v, btn, i) {
     track.querySelectorAll(".trail__point").forEach((el) =>
@@ -564,6 +508,7 @@ function initTrail() {
 
   if (points.length) {
     selectVersion(points[0].v, track.querySelector(".trail__point"), 0);
+    updateProgress(0);
   }
 }
 
