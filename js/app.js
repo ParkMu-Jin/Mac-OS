@@ -309,7 +309,7 @@ function logoForYear(year) {
     const parts = f.replace(/\.(png|jpg)$/, "").split("-").map(Number);
     return y >= parts[0] && y <= (parts[1] || parts[0]);
   });
-  return hit ? "img/" + hit : null;
+  return hit ? "IMG/" + hit : null;
 }
 
 function initTrail() {
