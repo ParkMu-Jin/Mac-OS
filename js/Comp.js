@@ -23,7 +23,26 @@ const GALERIAS_COMPARACION = {
 document.addEventListener("DOMContentLoaded", () => {
   iniciarRevelado();
   iniciarVisor();
+  iniciarResaltadoParejas();
 });
+
+/* BLOQUE: RESALTADO DE PAREJA AL PASAR EL CURSOR */
+function iniciarResaltadoParejas() {
+  const items = document.querySelectorAll(".comp__item[data-cat]");
+  if (!items.length) return;
+
+  items.forEach((item) => {
+    const cat = item.dataset.cat;
+    const pareja = document.querySelectorAll(`.comp__item[data-cat="${cat}"]`);
+
+    item.addEventListener("mouseenter", () => {
+      pareja.forEach((el) => el.classList.add("es-resaltado"));
+    });
+    item.addEventListener("mouseleave", () => {
+      pareja.forEach((el) => el.classList.remove("es-resaltado"));
+    });
+  });
+}
 
 /* BLOQUE: REVELADO EN SCROLL DE CADA CATEGORÍA */
 function iniciarRevelado() {
