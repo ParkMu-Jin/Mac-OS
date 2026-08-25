@@ -5,143 +5,198 @@ const VERSIONS = [
     codename: "Interfaz gráfica",
     version: "1.0",
     year: "1984",
-    summary: "Fue el sistema operativo original del Macintosh y popularizó una forma de interacción basada en elementos gráficos, en lugar de depender exclusivamente de comandos.",
-    features: [
+
+    // INFORMACIÓN PARA LÍNEA DE TIEMPO
+    timelineSummary: "Fue el sistema operativo original del Macintosh y popularizó una forma de interacción basada en elementos gráficos, en lugar de depender exclusivamente de comandos.",
+    timelineFeatures: [
       "Mejora principal: Introdujo ventanas, iconos, menús, carpetas y la papelera.",
       "Impacto en el desarrollo de software: Impulsó el desarrollo de aplicaciones con interfaces gráficas, haciendo que los programas fueran más visuales y fáciles de utilizar.",
       "Experiencia de usuario: Permitió interactuar con el computador mediante ratón y elementos gráficos, haciendo la informática más accesible.",
     ],
-    specs: {
-      requisitos: "[Requisitos mínimos]",
-      arquitectura: "[Arquitectura de procesador soportada]",
-      novedad: "Interfaz gráfica",
-    },
+
+    // INFORMACIÓN NUEVA PARA VERSIONES
+    summary: "Macintosh System Software 1.0 fue el sistema operativo original del Macintosh. Introdujo una interfaz gráfica basada en ventanas, iconos, menús y el uso del ratón.",
+
+    features: [
+      "Interfaz gráfica: Facilitó la interacción mediante ventanas, iconos y menús.",
+      "Finder: Permitió organizar y acceder a archivos mediante una interfaz visual.",
+      "Importancia histórica: Estableció las bases de la experiencia de usuario de Macintosh.",
+    ],
   },
+
   {
     id: "v2",
     name: "System 7",
     codename: "Multitarea",
     version: "7",
     year: "1991",
-    summary: "System 7 representó una importante evolución del Macintosh al mejorar la administración de memoria, archivos y recursos del sistema.",
-    features: [
+
+    // INFORMACIÓN PARA LÍNEA DE TIEMPO
+    timelineSummary: "System 7 representó una importante evolución del Macintosh al mejorar la administración de memoria, archivos y recursos del sistema.",
+    timelineFeatures: [
       "Mejora principal: Incorporó una mejor gestión de memoria y capacidades de multitarea cooperativa.",
       "Impacto en el desarrollo de software: Permitió crear aplicaciones más completas y profesionales, aprovechando mejor los recursos del sistema.",
       "Experiencia de usuario: Facilitó trabajar con varias aplicaciones y archivos, haciendo el entorno más organizado y productivo.",
     ],
-    specs: {
-      requisitos: "[Requisitos mínimos]",
-      arquitectura: "[Arquitectura de procesador soportada]",
-      novedad: "[Novedad técnica principal]",
-    },
+
+    // INFORMACIÓN NUEVA PARA VERSIONES
+    summary: "System 7 fue una importante evolución del Macintosh. Mejoró la administración de memoria, archivos y aplicaciones, haciendo el sistema más completo y productivo.",
+
+features: [
+  "Memoria: Mejoró el aprovechamiento de los recursos del sistema.",
+  "Multitarea: Facilitó el uso de varias aplicaciones.",
+  "Archivos: Mejoró la organización y administración de documentos.",
+],
   },
+
   {
     id: "v3",
     name: "Mac OS 8",
     codename: "Finder renovado",
     version: "8",
     year: "1997",
-    summary: "Mac OS 8 modernizó considerablemente el entorno visual del Macintosh y el Finder.",
-    features: [
+
+    // INFORMACIÓN PARA LÍNEA DE TIEMPO
+    timelineSummary: "Mac OS 8 modernizó considerablemente el entorno visual del Macintosh y el Finder.",
+    timelineFeatures: [
       "Mejora principal: Renovó el Finder y mejoró la administración de archivos y carpetas.",
       "Impacto en el desarrollo de software: Favoreció aplicaciones orientadas a productividad, multimedia e Internet.",
       "Experiencia de usuario: Introdujo una interfaz más colorida y moderna, haciendo la navegación por archivos más intuitiva.",
     ],
-    specs: {
-      requisitos: "[Requisitos mínimos]",
-      arquitectura: "[Arquitectura de procesador soportada]",
-      novedad: "[Novedad técnica principal]",
-    },
+
+    // INFORMACIÓN NUEVA PARA VERSIONES
+    summary: "Mac OS 8 modernizó el entorno Macintosh con un Finder renovado y una apariencia más actual. También mejoró las funciones relacionadas con multimedia e Internet.",
+
+features: [
+  "Finder: Mejoró la navegación y administración de archivos.",
+  "Interfaz: Presentó una apariencia más moderna y colorida.",
+  "Multimedia: Favoreció el uso de aplicaciones multimedia e Internet.",
+],
   },
+
   {
     id: "v4",
     name: "Mac OS 9",
     codename: "Conectividad",
     version: "9",
     year: "1999",
-    summary: "Mac OS 9 fue la última gran versión de la línea clásica de Mac OS antes de la transición hacia Mac OS X.",
-    features: [
+
+    // INFORMACIÓN PARA LÍNEA DE TIEMPO
+    timelineSummary: "Mac OS 9 fue la última gran versión de la línea clásica de Mac OS antes de la transición hacia Mac OS X.",
+    timelineFeatures: [
       "Mejora principal: Mejoró las funciones de Internet, redes y administración de usuarios.",
       "Impacto en el desarrollo de software: Facilitó el desarrollo de aplicaciones que utilizaban servicios de red y conectividad.",
       "Experiencia de usuario: Permitió compartir información y recursos mediante redes de una manera más sencilla.",
     ],
-    specs: {
-      requisitos: "[Requisitos mínimos]",
-      arquitectura: "[Arquitectura de procesador soportada]",
-      novedad: "[Novedad técnica principal]",
-    },
+
+    // INFORMACIÓN NUEVA PARA VERSIONES
+    summary: "Mac OS 9 fue la última gran versión de la línea clásica de Mac OS. Mejoró la conectividad, las funciones de red y la administración de usuarios.",
+
+features: [
+  "Redes: Mejoró la comunicación entre computadores.",
+  "Usuarios: Incorporó mejores herramientas de administración.",
+  "Etapa clásica: Cerró la generación tradicional de Mac OS.",
+],
   },
+
   {
     id: "v5",
     name: "Mac OS X 10.0 Cheetah",
     codename: "Cheetah",
     version: "10.0",
     year: "2001",
-    summary: "Mac OS X introdujo una nueva arquitectura basada en tecnologías UNIX, proporcionando una base más moderna, estable y potente. Apple presentó además la nueva interfaz Aqua.",
-    features: [
+
+    // INFORMACIÓN PARA LÍNEA DE TIEMPO
+    timelineSummary: "Mac OS X introdujo una nueva arquitectura basada en tecnologías UNIX, proporcionando una base más moderna, estable y potente. Apple presentó además la nueva interfaz Aqua.",
+    timelineFeatures: [
       "Mejora principal: Incorporó una arquitectura basada en UNIX, con mayor estabilidad y seguridad.",
       "Impacto en el desarrollo de software: Proporcionó herramientas y frameworks más avanzados para desarrollar aplicaciones profesionales.",
       "Experiencia de usuario: La interfaz Aqua introdujo transparencias, sombras, nuevos iconos y el Dock, transformando la apariencia del sistema.",
     ],
-    specs: {
-      requisitos: "[Requisitos mínimos]",
-      arquitectura: "[Arquitectura de procesador soportada]",
-      novedad: "Arquitectura UNIX e interfaz Aqua",
-    },
+
+    // INFORMACIÓN NUEVA PARA VERSIONES
+    summary: "Mac OS X 10.0 Cheetah inició una nueva generación de sistemas operativos de Apple. Introdujo una arquitectura basada en UNIX y la nueva interfaz Aqua.",
+
+features: [
+  "UNIX: Proporcionó una base más moderna y estable.",
+  "Aqua: Renovó completamente la apariencia del sistema.",
+  "Desarrollo: Incorporó nuevas tecnologías para crear aplicaciones.",
+],
   },
+
   {
     id: "v6",
     name: "OS X Yosemite",
     codename: "Yosemite",
     version: "10.10",
     year: "2014",
-    summary: "Yosemite modernizó la apariencia de OS X y aumentó la integración entre las computadoras Mac y otros dispositivos de Apple.",
-    features: [
+
+    // INFORMACIÓN PARA LÍNEA DE TIEMPO
+    timelineSummary: "Yosemite modernizó la apariencia de OS X y aumentó la integración entre las computadoras Mac y otros dispositivos de Apple.",
+    timelineFeatures: [
       "Mejora principal: Incorporó una interfaz visual más plana, limpia y moderna, junto con una mayor integración con los servicios de Apple.",
       "Impacto en el desarrollo de software: Favoreció el desarrollo de aplicaciones capaces de integrarse con el ecosistema Apple y sus servicios.",
       "Experiencia de usuario: Adoptó un diseño inspirado en iOS, con elementos más planos, transparencias y una apariencia visual más uniforme.",
     ],
-    specs: {
-      requisitos: "[Requisitos mínimos]",
-      arquitectura: "[Arquitectura de procesador soportada]",
-      novedad: "Continuidad",
-    },
+
+    // INFORMACIÓN NUEVA PARA VERSIONES
+    summary: "OS X Yosemite renovó la apariencia de OS X con un diseño más plano y moderno. También mejoró la integración entre Mac y otros dispositivos de Apple.",
+
+features: [
+  "Diseño: Incorporó una interfaz más limpia y moderna.",
+  "Continuidad: Mejoró la conexión entre Mac y otros dispositivos.",
+  "Ecosistema: Aumentó la integración entre servicios y dispositivos Apple.",
+],
   },
+
   {
     id: "v7",
     name: "macOS 11 Big Sur",
     codename: "Big Sur",
     version: "11",
     year: "2020",
-    summary: "Big Sur marcó una importante renovación de macOS tanto en diseño como en arquitectura, preparando el ecosistema para la transición a los chips Apple Silicon.",
-    features: [
+
+    // INFORMACIÓN PARA LÍNEA DE TIEMPO
+    timelineSummary: "Big Sur marcó una importante renovación de macOS tanto en diseño como en arquitectura, preparando el ecosistema para la transición a los chips Apple Silicon.",
+    timelineFeatures: [
       "Mejora principal: Rediseñó la interfaz y preparó macOS para funcionar con los nuevos chips Apple Silicon.",
       "Impacto en el desarrollo de software: Los desarrolladores tuvieron que adaptar sus aplicaciones para funcionar tanto en Intel como en Apple Silicon.",
       "Experiencia de usuario: Introdujo nuevos iconos, controles, Centro de Control y elementos visuales inspirados en iOS, haciendo el sistema más coherente.",
     ],
-    specs: {
-      requisitos: "[Requisitos mínimos]",
-      arquitectura: "[Arquitectura de procesador soportada]",
-      novedad: "Apple Silicon",
-    },
+
+    // INFORMACIÓN NUEVA PARA VERSIONES
+    summary: "macOS 11 Big Sur presentó un importante rediseño de macOS y preparó el sistema para los chips Apple Silicon. También acercó visualmente macOS a otros sistemas de Apple.",
+
+features: [
+  "Diseño: Renovó iconos, ventanas y controles.",
+  "Apple Silicon: Preparó macOS para los nuevos procesadores de Apple.",
+  "Compatibilidad: Permitió la transición entre Intel y Apple Silicon.",
+],
   },
+
   {
     id: "v8",
     name: "macOS 26 Tahoe",
     codename: "Tahoe",
     version: "26",
     year: "2025",
-    summary: "Tahoe representa una nueva etapa de macOS, con un rediseño visual basado en Liquid Glass, además de nuevas funciones de productividad, continuidad e inteligencia.",
-    features: [
+
+    // INFORMACIÓN PARA LÍNEA DE TIEMPO
+    timelineSummary: "Tahoe representa una nueva etapa de macOS, con un rediseño visual basado en Liquid Glass, además de nuevas funciones de productividad, continuidad e inteligencia.",
+    timelineFeatures: [
       "Mejora principal: Introdujo el nuevo diseño Liquid Glass, junto con nuevas funciones de Spotlight, Continuidad y Apple Intelligence.",
       "Impacto en el desarrollo de software: Los desarrolladores deben adaptar sus aplicaciones al nuevo lenguaje visual y aprovechar nuevas capacidades del sistema.",
       "Experiencia de usuario: El escritorio, Dock, barras de herramientas, iconos y controles adquieren una apariencia más translúcida, dinámica y personalizable.",
     ],
-    specs: {
-      requisitos: "[Requisitos mínimos]",
-      arquitectura: "[Arquitectura de procesador soportada]",
-      novedad: "Liquid Glass",
-    },
+
+    // INFORMACIÓN NUEVA PARA VERSIONES
+    summary: "macOS 26 Tahoe introdujo el diseño Liquid Glass y nuevas funciones de productividad. También amplió las capacidades de Continuidad y Apple Intelligence.",
+
+features: [
+  "Liquid Glass: Introdujo una nueva apariencia visual más translúcida.",
+  "Productividad: Incorporó nuevas funciones para trabajar con el sistema.",
+  "Apple Intelligence: Amplió las funciones de inteligencia integradas en macOS.",
+],
   },
 ];
 /*  ILUSTRACIONES POR ERA  */
