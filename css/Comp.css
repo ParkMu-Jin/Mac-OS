@@ -2,9 +2,6 @@
   position:relative;
 }
 
-/* BLOQUE: PORTADA DE LA PÁGINA DE COMPARACIÓN
-   Replica el look del hero de las demás páginas (kicker + título con
-   degradado + resumen) usando las variables de diseño de style.css. */
 .portada{
   position:relative;
   padding:5.5rem 0 1rem;
@@ -186,7 +183,7 @@
   color:var(--text-faint);
 }
 
-/* BLOQUE: MARCO DE PANTALLA (reutiliza el estilo del mockup de portada) */
+/* BLOQUE: MARCO DE PANTALLA  */
 .comp__pantalla{
   border-radius:var(--radius-s);
   border:1px solid var(--line);
@@ -212,7 +209,7 @@
   object-fit:cover;
 }
 
-/* BLOQUE: HACER LA CAPTURA CLICKEABLE (abre el visor) */
+/* BLOQUE: HACER LA CAPTURA CLICKEABLE */
 .comp__pantalla{
   cursor:zoom-in;
   position:relative;
@@ -242,7 +239,7 @@
   outline-offset:2px;
 }
 
-/* BLOQUE: VISOR DE IMÁGENES (lightbox con barra lateral) */
+/* BLOQUE: VISOR DE IMÁGENES  */
 .visor{
   position:fixed;
   inset:0;
@@ -425,4 +422,20 @@ body.sin-scroll{ overflow:hidden; }
   .comp__cuerpo::before{ display:none; }
   .comp__columna--a{ margin-bottom:2.6rem; }
   .comp__enfrentamiento{ gap:1rem; }
+}
+
+/* BLOQUE: RESALTADO DE PAREJA AL PASAR EL CURSOR */
+.comp__item[data-cat]{
+  padding:1rem 1.1rem 2.2rem;
+  margin:-1rem -1.1rem 2.2rem;
+  border-radius:var(--radius-m);
+  background:transparent;
+  transition: background .25s var(--ease), box-shadow .25s var(--ease), transform .25s var(--ease), opacity .5s var(--ease);
+}
+.comp__item.es-resaltado{
+  background:var(--surface-2);
+  box-shadow: 0 12px 28px rgba(0,0,0,.3);
+  transform: scale(1.03);
+  position: relative;
+  z-index: 3;
 }
