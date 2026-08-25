@@ -503,10 +503,10 @@ function initTrail() {
     detail.querySelector(".trail__detail-name").textContent = v.name;
     detail.querySelector(".trail__detail-code").textContent =
       `${v.codename} — macOS ${v.version} · ${v.year}`;
-    detail.querySelector(".trail__detail-summary").textContent = v.summary;
-    detail.querySelector(".trail__detail-features").innerHTML = v.features
-      .map((f) => `<li>${f}</li>`)
-      .join("");
+    detail.querySelector(".trail__detail-summary").textContent = v.timelineSummary;
+detail.querySelector(".trail__detail-features").innerHTML = v.timelineFeatures
+  .map((f) => `<li>${f}</li>`)
+  .join("");
 
     // escritorio de época dentro del panel
     const shotNum = detail.querySelector(".shot-num");
