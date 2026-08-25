@@ -1,301 +1,98 @@
 const VERSIONS = [
   {
-    id: "v1",
-    name: "Macintosh System Software 1.0",
-    codename: "Interfaz gráfica",
-    version: "1.0",
-    year: "1984",
-
-    // INFORMACIÓN PARA LÍNEA DE TIEMPO
-    timelineSummary: "Fue el sistema operativo original del Macintosh y popularizó una forma de interacción basada en elementos gráficos, en lugar de depender exclusivamente de comandos.",
-    timelineFeatures: [
-      "Mejora principal: Introdujo ventanas, iconos, menús, carpetas y la papelera.",
-      "Impacto en el desarrollo de software: Impulsó el desarrollo de aplicaciones con interfaces gráficas, haciendo que los programas fueran más visuales y fáciles de utilizar.",
-      "Experiencia de usuario: Permitió interactuar con el computador mediante ratón y elementos gráficos, haciendo la informática más accesible.",
-    ],
-
-    // INFORMACIÓN NUEVA PARA VERSIONES
-    summary: "Macintosh System Software 1.0 fue el sistema operativo original del Macintosh. Introdujo una interfaz gráfica basada en ventanas, iconos, menús y el uso del ratón.",
-
-    features: [
-      "Interfaz gráfica: Facilitó la interacción mediante ventanas, iconos y menús.",
-      "Finder: Permitió organizar y acceder a archivos mediante una interfaz visual.",
-      "Importancia histórica: Estableció las bases de la experiencia de usuario de Macintosh.",
-    ],
-  },
-
-  {
-    id: "v2",
-    name: "System 7",
-    codename: "Multitarea",
-    version: "7",
-    year: "1991",
-
-    // INFORMACIÓN PARA LÍNEA DE TIEMPO
-    timelineSummary: "System 7 representó una importante evolución del Macintosh al mejorar la administración de memoria, archivos y recursos del sistema.",
-    timelineFeatures: [
-      "Mejora principal: Incorporó una mejor gestión de memoria y capacidades de multitarea cooperativa.",
-      "Impacto en el desarrollo de software: Permitió crear aplicaciones más completas y profesionales, aprovechando mejor los recursos del sistema.",
-      "Experiencia de usuario: Facilitó trabajar con varias aplicaciones y archivos, haciendo el entorno más organizado y productivo.",
-    ],
-
-    // INFORMACIÓN NUEVA PARA VERSIONES
-    summary: "System 7 fue una importante evolución del Macintosh. Mejoró la administración de memoria, archivos y aplicaciones, haciendo el sistema más completo y productivo.",
-
-features: [
-  "Memoria: Mejoró el aprovechamiento de los recursos del sistema.",
-  "Multitarea: Facilitó el uso de varias aplicaciones.",
-  "Archivos: Mejoró la organización y administración de documentos.",
-],
-  },
-
-  {
-    id: "v3",
-    name: "Mac OS 8",
-    codename: "Finder renovado",
-    version: "8",
-    year: "1997",
-
-    // INFORMACIÓN PARA LÍNEA DE TIEMPO
-    timelineSummary: "Mac OS 8 modernizó considerablemente el entorno visual del Macintosh y el Finder.",
-    timelineFeatures: [
-      "Mejora principal: Renovó el Finder y mejoró la administración de archivos y carpetas.",
-      "Impacto en el desarrollo de software: Favoreció aplicaciones orientadas a productividad, multimedia e Internet.",
-      "Experiencia de usuario: Introdujo una interfaz más colorida y moderna, haciendo la navegación por archivos más intuitiva.",
-    ],
-
-    // INFORMACIÓN NUEVA PARA VERSIONES
-    summary: "Mac OS 8 modernizó el entorno Macintosh con un Finder renovado y una apariencia más actual. También mejoró las funciones relacionadas con multimedia e Internet.",
-
-features: [
-  "Finder: Mejoró la navegación y administración de archivos.",
-  "Interfaz: Presentó una apariencia más moderna y colorida.",
-  "Multimedia: Favoreció el uso de aplicaciones multimedia e Internet.",
-],
-  },
-
-  {
     id: "v4",
     name: "Mac OS 9",
     codename: "Conectividad",
     version: "9",
     year: "1999",
-
-    // INFORMACIÓN PARA LÍNEA DE TIEMPO
-    timelineSummary: "Mac OS 9 fue la última gran versión de la línea clásica de Mac OS antes de la transición hacia Mac OS X.",
-    timelineFeatures: [
+    summary: "Mac OS 9 fue la última gran versión de la línea clásica de Mac OS antes de la transición hacia Mac OS X.",
+    features: [
       "Mejora principal: Mejoró las funciones de Internet, redes y administración de usuarios.",
       "Impacto en el desarrollo de software: Facilitó el desarrollo de aplicaciones que utilizaban servicios de red y conectividad.",
       "Experiencia de usuario: Permitió compartir información y recursos mediante redes de una manera más sencilla.",
     ],
-
-    // INFORMACIÓN NUEVA PARA VERSIONES
-    summary: "Mac OS 9 fue la última gran versión de la línea clásica de Mac OS. Mejoró la conectividad, las funciones de red y la administración de usuarios.",
-
-features: [
-  "Redes: Mejoró la comunicación entre computadores.",
-  "Usuarios: Incorporó mejores herramientas de administración.",
-  "Etapa clásica: Cerró la generación tradicional de Mac OS.",
-],
+    specs: {
+      requisitos: "[Requisitos mínimos]",
+      arquitectura: "[Arquitectura de procesador soportada]",
+      novedad: "[Novedad técnica principal]",
+    },
   },
-
   {
     id: "v5",
     name: "Mac OS X 10.0 Cheetah",
     codename: "Cheetah",
     version: "10.0",
     year: "2001",
-
-    // INFORMACIÓN PARA LÍNEA DE TIEMPO
-    timelineSummary: "Mac OS X introdujo una nueva arquitectura basada en tecnologías UNIX, proporcionando una base más moderna, estable y potente. Apple presentó además la nueva interfaz Aqua.",
-    timelineFeatures: [
+    summary: "Mac OS X introdujo una nueva arquitectura basada en tecnologías UNIX, proporcionando una base más moderna, estable y potente. Apple presentó además la nueva interfaz Aqua.",
+    features: [
       "Mejora principal: Incorporó una arquitectura basada en UNIX, con mayor estabilidad y seguridad.",
       "Impacto en el desarrollo de software: Proporcionó herramientas y frameworks más avanzados para desarrollar aplicaciones profesionales.",
       "Experiencia de usuario: La interfaz Aqua introdujo transparencias, sombras, nuevos iconos y el Dock, transformando la apariencia del sistema.",
     ],
-
-    // INFORMACIÓN NUEVA PARA VERSIONES
-    summary: "Mac OS X 10.0 Cheetah inició una nueva generación de sistemas operativos de Apple. Introdujo una arquitectura basada en UNIX y la nueva interfaz Aqua.",
-
-features: [
-  "UNIX: Proporcionó una base más moderna y estable.",
-  "Aqua: Renovó completamente la apariencia del sistema.",
-  "Desarrollo: Incorporó nuevas tecnologías para crear aplicaciones.",
-],
+    specs: {
+      requisitos: "[Requisitos mínimos]",
+      arquitectura: "[Arquitectura de procesador soportada]",
+      novedad: "Arquitectura UNIX e interfaz Aqua",
+    },
   },
-
   {
     id: "v6",
     name: "OS X Yosemite",
     codename: "Yosemite",
     version: "10.10",
     year: "2014",
-
-    // INFORMACIÓN PARA LÍNEA DE TIEMPO
-    timelineSummary: "Yosemite modernizó la apariencia de OS X y aumentó la integración entre las computadoras Mac y otros dispositivos de Apple.",
-    timelineFeatures: [
+    summary: "Yosemite modernizó la apariencia de OS X y aumentó la integración entre las computadoras Mac y otros dispositivos de Apple.",
+    features: [
       "Mejora principal: Incorporó una interfaz visual más plana, limpia y moderna, junto con una mayor integración con los servicios de Apple.",
       "Impacto en el desarrollo de software: Favoreció el desarrollo de aplicaciones capaces de integrarse con el ecosistema Apple y sus servicios.",
       "Experiencia de usuario: Adoptó un diseño inspirado en iOS, con elementos más planos, transparencias y una apariencia visual más uniforme.",
     ],
-
-    // INFORMACIÓN NUEVA PARA VERSIONES
-    summary: "OS X Yosemite renovó la apariencia de OS X con un diseño más plano y moderno. También mejoró la integración entre Mac y otros dispositivos de Apple.",
-
-features: [
-  "Diseño: Incorporó una interfaz más limpia y moderna.",
-  "Continuidad: Mejoró la conexión entre Mac y otros dispositivos.",
-  "Ecosistema: Aumentó la integración entre servicios y dispositivos Apple.",
-],
+    specs: {
+      requisitos: "[Requisitos mínimos]",
+      arquitectura: "[Arquitectura de procesador soportada]",
+      novedad: "Continuidad",
+    },
   },
-
   {
     id: "v7",
     name: "macOS 11 Big Sur",
     codename: "Big Sur",
     version: "11",
     year: "2020",
-
-    // INFORMACIÓN PARA LÍNEA DE TIEMPO
-    timelineSummary: "Big Sur marcó una importante renovación de macOS tanto en diseño como en arquitectura, preparando el ecosistema para la transición a los chips Apple Silicon.",
-    timelineFeatures: [
+    summary: "Big Sur marcó una importante renovación de macOS tanto en diseño como en arquitectura, preparando el ecosistema para la transición a los chips Apple Silicon.",
+    features: [
       "Mejora principal: Rediseñó la interfaz y preparó macOS para funcionar con los nuevos chips Apple Silicon.",
       "Impacto en el desarrollo de software: Los desarrolladores tuvieron que adaptar sus aplicaciones para funcionar tanto en Intel como en Apple Silicon.",
       "Experiencia de usuario: Introdujo nuevos iconos, controles, Centro de Control y elementos visuales inspirados en iOS, haciendo el sistema más coherente.",
     ],
-
-    // INFORMACIÓN NUEVA PARA VERSIONES
-    summary: "macOS 11 Big Sur presentó un importante rediseño de macOS y preparó el sistema para los chips Apple Silicon. También acercó visualmente macOS a otros sistemas de Apple.",
-
-features: [
-  "Diseño: Renovó iconos, ventanas y controles.",
-  "Apple Silicon: Preparó macOS para los nuevos procesadores de Apple.",
-  "Compatibilidad: Permitió la transición entre Intel y Apple Silicon.",
-],
+    specs: {
+      requisitos: "[Requisitos mínimos]",
+      arquitectura: "[Arquitectura de procesador soportada]",
+      novedad: "Apple Silicon",
+    },
   },
-
   {
     id: "v8",
     name: "macOS 26 Tahoe",
     codename: "Tahoe",
     version: "26",
     year: "2025",
-
-    // INFORMACIÓN PARA LÍNEA DE TIEMPO
-    timelineSummary: "Tahoe representa una nueva etapa de macOS, con un rediseño visual basado en Liquid Glass, además de nuevas funciones de productividad, continuidad e inteligencia.",
-    timelineFeatures: [
+    summary: "Tahoe representa una nueva etapa de macOS, con un rediseño visual basado en Liquid Glass, además de nuevas funciones de productividad, continuidad e inteligencia.",
+    features: [
       "Mejora principal: Introdujo el nuevo diseño Liquid Glass, junto con nuevas funciones de Spotlight, Continuidad y Apple Intelligence.",
       "Impacto en el desarrollo de software: Los desarrolladores deben adaptar sus aplicaciones al nuevo lenguaje visual y aprovechar nuevas capacidades del sistema.",
       "Experiencia de usuario: El escritorio, Dock, barras de herramientas, iconos y controles adquieren una apariencia más translúcida, dinámica y personalizable.",
     ],
-
-    // INFORMACIÓN NUEVA PARA VERSIONES
-    summary: "macOS 26 Tahoe introdujo el diseño Liquid Glass y nuevas funciones de productividad. También amplió las capacidades de Continuidad y Apple Intelligence.",
-
-features: [
-  "Liquid Glass: Introdujo una nueva apariencia visual más translúcida.",
-  "Productividad: Incorporó nuevas funciones para trabajar con el sistema.",
-  "Apple Intelligence: Amplió las funciones de inteligencia integradas en macOS.",
-],
+    specs: {
+      requisitos: "[Requisitos mínimos]",
+      arquitectura: "[Arquitectura de procesador soportada]",
+      novedad: "Liquid Glass",
+    },
   },
 ];
 /*  ILUSTRACIONES POR ERA  */
 
 const ART = {
-  v1: `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-    <defs>
-      <pattern id="art1-dither" width="2" height="2" patternUnits="userSpaceOnUse">
-        <rect width="2" height="2" fill="#c8c5ba"/>
-        <rect width="1" height="1" fill="#8f8c82"/><rect x="1" y="1" width="1" height="1" fill="#8f8c82"/>
-      </pattern>
-      <pattern id="art1-titlebar" width="4" height="4" patternUnits="userSpaceOnUse">
-        <rect width="4" height="2" fill="#cfccbf"/><rect y="2" width="4" height="2" fill="#faf9f4"/>
-      </pattern>
-    </defs>
-    <!-- fondo tramado 1-bit -->
-    <rect width="400" height="300" fill="url(#art1-dither)"/>
-
-    <!-- barra de menús -->
-    <rect width="400" height="16" fill="#000"/>
-    <path d="M10 4c0-1 .8-1.8 1.8-1.8.7 0 1.3.4 1.6.9-.7.4-1 1-1 1.7 0 .8.5 1.5 1.2 1.7-.3.7-.7 1.4-1.3 1.4-.5 0-.8-.3-1.3-.3s-.9.3-1.3.3c-.6 0-1.1-.8-1.5-1.6.6-.3 1-1 1-1.7z M11.4 1.9c-.1-.8.5-1.6 1.3-1.7.1.8-.5 1.6-1.3 1.7z" fill="#fff"/>
-    <g font-family="'Silkscreen','JetBrains Mono',monospace" font-size="7.5" fill="#fff">
-      <text x="30" y="11">File</text>
-      <text x="56" y="11">Edit</text>
-      <text x="86" y="11">View</text>
-      <text x="118" y="11">Special</text>
-    </g>
-
-    <!-- ventana Finder -->
-    <g>
-      <rect x="46" y="34" width="252" height="58" fill="#fdfdfb" stroke="#111" stroke-width="2"/>
-      <rect x="46" y="34" width="252" height="12" fill="url(#art1-titlebar)" stroke="#111" stroke-width="2"/>
-      <rect x="51" y="37" width="8" height="7" fill="#fff" stroke="#111" stroke-width="1.2"/>
-      <g font-family="'Silkscreen','JetBrains Mono',monospace" font-size="7" fill="#111" text-anchor="middle">
-        <text x="172" y="72">The Macintosh Finder, Version 1.0 (18 Jan 84)</text>
-        <text x="172" y="85">©1984 Apple Computer</text>
-      </g>
-    </g>
-
-    <!-- ventana System Disk -->
-    <g>
-      <rect x="62" y="128" width="226" height="118" fill="#fdfdfb" stroke="#111" stroke-width="2"/>
-      <rect x="62" y="128" width="226" height="14" fill="#fdfdfb" stroke="#111" stroke-width="2"/>
-      <text x="175" y="139" font-family="'Silkscreen','JetBrains Mono',monospace" font-size="8" font-weight="bold" fill="#111" text-anchor="middle">System Disk</text>
-      <!-- fila de datos -->
-      <line x1="62" y1="142" x2="288" y2="142" stroke="#111" stroke-width="1.5"/>
-      <line x1="62" y1="154" x2="288" y2="154" stroke="#111" stroke-width="1.5"/>
-      <line x1="140" y1="142" x2="140" y2="154" stroke="#111" stroke-width="1.5"/>
-      <line x1="212" y1="142" x2="212" y2="154" stroke="#111" stroke-width="1.5"/>
-      <g font-family="'Silkscreen','JetBrains Mono',monospace" font-size="6" fill="#111">
-        <text x="66" y="151">4 items</text><text x="144" y="151">324K in disk</text><text x="216" y="151">75K available</text>
-      </g>
-      <!-- carpetas -->
-      <g stroke="#111" fill="#fdfdfb" stroke-width="1.5">
-        <path d="M78 176h16l4 4h14v18H78z"/><path d="M120 176h16l4 4h14v18h-34z"/>
-        <path d="M162 176h16l4 4h14v18h-34z"/><path d="M204 176h16l4 4h14v18h-34z"/>
-      </g>
-      <g font-family="'Silkscreen','JetBrains Mono',monospace" font-size="4.5" fill="#111" text-anchor="middle">
-        <text x="93" y="207">System Folder</text>
-        <text x="137" y="207">MacPaint 1.0</text>
-        <text x="179" y="207">Utilities</text>
-        <text x="223" y="207">Empty Folder</text>
-      </g>
-      <!-- scrollbars -->
-      <rect x="276" y="156" width="12" height="76" fill="#fdfdfb" stroke="#111" stroke-width="1.5"/>
-      <rect x="278" y="158" width="8" height="8" fill="#fff" stroke="#111"/><path d="M280 163h5l-2.5-3z" fill="#111"/>
-      <rect x="278" y="222" width="8" height="8" fill="#fff" stroke="#111"/><path d="M280 225h5l-2.5 3z" fill="#111"/>
-      <rect x="281" y="180" width="6" height="24" fill="url(#art1-titlebar)" stroke="#111" stroke-width=".8"/>
-      <rect x="64" y="232" width="212" height="12" fill="#fdfdfb" stroke="#111" stroke-width="1.5"/>
-      <rect x="66" y="234" width="8" height="8" fill="#fff" stroke="#111"/><path d="M67 236h5l-2.5 3z" fill="#111"/>
-      <rect x="266" y="234" width="8" height="8" fill="#fff" stroke="#111"/><path d="M271 236h-5l2.5 3z" fill="#111"/>
-      <rect x="90" y="235" width="40" height="8" fill="url(#art1-titlebar)" stroke="#111" stroke-width=".8"/>
-    </g>
-
-    <!-- iconos a la derecha -->
-    <g font-family="'Silkscreen','JetBrains Mono',monospace" font-size="6" fill="#111" text-anchor="middle">
-      <rect x="332" y="36" width="34" height="34" fill="url(#art1-dither)" stroke="#111" stroke-width="1.5"/>
-      <text x="349" y="80">System Disk</text>
-      <rect x="337" y="92" width="24" height="32" fill="#fdfdfb" stroke="#111" stroke-width="1.5"/>
-      <path d="M341 98h16 M341 103h16 M341 108h16 M341 113h12" stroke="#111" stroke-width="1.2"/>
-      <text x="349" y="134">Welcome</text>
-      <rect x="336" y="148" width="26" height="30" rx="2" fill="#fdfdfb" stroke="#111" stroke-width="1.5"/>
-      <rect x="342" y="152" width="14" height="10" fill="#fdfdfb" stroke="#111"/>
-      <rect x="342" y="168" width="14" height="4" fill="#8f8c82"/>
-      <text x="349" y="188">Infinite HD</text>
-      <path d="M334 226h30l-3 34h-24z" fill="#fdfdfb" stroke="#111" stroke-width="1.5"/>
-      <rect x="330" y="219" width="38" height="7" fill="#fdfdfb" stroke="#111" stroke-width="1.5"/>
-      <path d="M340 233v20 M348 233v20 M356 233v20" stroke="#111" stroke-width="1.2"/>
-      <text x="349" y="272">Trash</text>
-    </g>
-
-    <!-- cursor -->
-    <path d="M292 96l0 14 3.5-3 2.5 6 3-1.3-2.5-5.5 5-.5z" fill="#111" stroke="#fdfdfb" stroke-width="1"/>
-  </svg>`,
-
-  v2: `<img src="IMG/system7-screenshot.jpg" alt="Escritorio de System 7 (1991)" style="width:100%;height:100%;object-fit:cover;" aria-hidden="true">`,
-
-  v3: `<img src="IMG/macos8-screenshot.png" alt="Escritorio de Mac OS 8 (1997)" style="width:100%;height:100%;object-fit:contain;" aria-hidden="true">`,
-
   v4: `<img src="IMG/macos9-screenshot.jpg" alt="Escritorio de Mac OS 9 (1999)" style="width:100%;height:100%;object-fit:cover;" aria-hidden="true">`,
 
   v5: `<img src="IMG/macosx-cheetah.jpg" alt="Escritorio de Mac OS X 10.0 Cheetah (2001)" style="width:100%;height:100%;object-fit:contain;" aria-hidden="true">`,
@@ -503,10 +300,10 @@ function initTrail() {
     detail.querySelector(".trail__detail-name").textContent = v.name;
     detail.querySelector(".trail__detail-code").textContent =
       `${v.codename} — macOS ${v.version} · ${v.year}`;
-    detail.querySelector(".trail__detail-summary").textContent = v.timelineSummary;
-detail.querySelector(".trail__detail-features").innerHTML = v.timelineFeatures
-  .map((f) => `<li>${f}</li>`)
-  .join("");
+    detail.querySelector(".trail__detail-summary").textContent = v.summary;
+    detail.querySelector(".trail__detail-features").innerHTML = v.features
+      .map((f) => `<li>${f}</li>`)
+      .join("");
 
     // escritorio de época dentro del panel
     const shotNum = detail.querySelector(".shot-num");
