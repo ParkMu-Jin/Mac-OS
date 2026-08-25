@@ -247,6 +247,9 @@ h1,h2,h3,h4,p{ margin:0; }
   height:100%;
   border:0;
   display:block;
+  /* el video es decorativo: se bloquea toda interacción para que
+     nunca aparezcan los controles, el logo ni las sugerencias de YouTube */
+  pointer-events:none;
 }
 
 /* ---------- SECTION SCAFFOLDING ---------- */
