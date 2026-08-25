@@ -82,8 +82,11 @@
 
           <div class="comp__item" id="cat-interfaz">
             <p class="comp__item-etiqueta">Interfaz gráfica</p>
-            <div class="comp__pantalla">
-              <img class="comp__imagen" src="https://upload.wikimedia.org/wikipedia/en/d/d8/MacOSX10-0screenshot.png" alt="Interfaz gráfica de Mac OS X 10.0">
+            <div class="comp__pantalla" role="button" tabindex="0" data-abrir-visor="a" aria-label="Ampliar capturas de Mac OS X 10.0">
+              <img class="comp__imagen" src="https://media.512pixels.net/downloads/macos-screenshots/10-0/10-0-Cheetah-About-This-Mac.png" alt="Interfaz gráfica de Mac OS X 10.0">
+              <span class="comp__pantalla-lupa" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </span>
             </div>
           </div>
 
@@ -123,8 +126,11 @@
 
           <div class="comp__item">
             <p class="comp__item-etiqueta">Interfaz gráfica</p>
-            <div class="comp__pantalla">
-              <img class="comp__imagen" src="https://i.ytimg.com/vi/Vc0jQoL_Vm4/hq720.jpg" alt="Interfaz gráfica de macOS Golden Gate 27">
+            <div class="comp__pantalla" role="button" tabindex="0" data-abrir-visor="b" aria-label="Ampliar capturas de macOS Golden Gate 27">
+              <img class="comp__imagen" src="https://photos5.appleinsider.com/gallery/67811-143050-000-macOS-GG-017-xl.jpg" alt="Interfaz gráfica de macOS Golden Gate 27">
+              <span class="comp__pantalla-lupa" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </span>
             </div>
           </div>
 
@@ -173,6 +179,33 @@
     <span>25 de agosto de 2026</span>
   </div>
 </footer>
+
+<div class="visor" id="visor" aria-hidden="true">
+  <div class="visor__fondo" data-cerrar-visor></div>
+  <div class="visor__caja" role="dialog" aria-modal="true" aria-labelledby="visor-nombre">
+    <button class="visor__cerrar" type="button" data-cerrar-visor aria-label="Cerrar visor">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div class="visor__principal">
+      <div class="visor__cabecera">
+        <p class="visor__nombre" id="visor-nombre">—</p>
+        <p class="visor__contador" id="visor-contador">—</p>
+      </div>
+      <div class="visor__marco">
+        <button class="visor__flecha visor__flecha--prev" type="button" data-visor-anterior aria-label="Captura anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <img class="visor__imagen" id="visor-imagen" src="" alt="">
+        <button class="visor__flecha visor__flecha--next" type="button" data-visor-siguiente aria-label="Captura siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="visor__lateral" id="visor-lateral" aria-label="Otras capturas de este sistema"></div>
+  </div>
+</div>
 
 <script src="js/app.js?v=16"></script>
 <script src="js/Comp.js"></script>
